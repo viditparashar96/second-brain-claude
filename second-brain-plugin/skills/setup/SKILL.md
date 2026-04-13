@@ -135,22 +135,40 @@ Write `~/.second-brain/config.json`:
 }
 ```
 
-### Step 9: Confirm completion
+### Step 9: Install background services
+
+Ask: "Want to install background services? They run silently on your Mac:"
+- Heartbeat (checks integrations every 30 min, sends notifications)
+- Vault indexer (re-indexes for search every 15 min)
+- Daily reflection (promotes daily log items to MEMORY.md at 8am)
+
+If yes, run:
+```bash
+bash "${CLAUDE_PLUGIN_ROOT}/scripts/launch_setup.sh" install "${CLAUDE_PLUGIN_ROOT}"
+```
+
+If no or not on macOS: skip, tell user they can run scripts manually.
+
+### Step 10: Confirm completion
 
 Print:
 ```
-✓ Second Brain setup complete!
+Second Brain setup complete!
 
 Your vault: ~/.second-brain/vault/
 Your config: ~/.second-brain/config.json
 
+What's running:
+- SessionStart hook: loads memory into every conversation (automatic)
+- Stop hook: auto-logs decisions and action items (automatic)
+- Background services: heartbeat, indexer, reflection (if installed)
+
 Next steps:
 - Open ~/.second-brain/vault/ in Obsidian for graph view
 - Try: /second-brain:status
-- Try: "show me my overdue tasks"
+- Try: "show me my open PRs"
 - Try: "draft an email to..."
-
-The SessionStart hook will now load your memory into every Claude Code session.
+- Just work normally — decisions and action items are auto-logged
 ```
 
 ## Rules
