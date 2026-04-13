@@ -1,0 +1,18 @@
+fastembed>=0.8.0
+sqlite-vec>=0.1.9
+numpy>=2.0.0
+python-dotenv>=1.0.0
+
+# Integrations
+google-api-python-client>=2.0.0
+google-auth-httplib2>=0.3.0
+google-auth-oauthlib>=1.0.0
+PyGithub>=2.9.0
+asana>=5.2.0
+
+# Proactive systems (heartbeat + reflection)
+anthropic>=0.40.0
+boto3>=1.28.0
+
+# Chat interface
+slack_sdk>=3.0

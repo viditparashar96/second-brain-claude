@@ -1,0 +1,26 @@
+# Environment
+.env
+.venv/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Claude Code state
+.claude/data/
+.claude/chat/.omc/
+*.db
+
+# Obsidian
+Dynamous/Memory/.obsidian/
+Dynamous/Memory/Untitled.canvas
+
+# Python
+__pycache__/
+*.pyc
+
+# Generated plans
+.agent/
+
+# Claude Code local settings
+.claude/settings.local.json

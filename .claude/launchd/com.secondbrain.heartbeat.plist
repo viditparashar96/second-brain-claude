@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.secondbrain.heartbeat</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>/Users/viditparashar/Desktop/second-brain-starter/.venv/bin/python</string>
+        <string>/Users/viditparashar/Desktop/second-brain-starter/.claude/scripts/heartbeat.py</string>
+    </array>
+    <key>StartInterval</key>
+    <integer>1800</integer>
+    <key>WorkingDirectory</key>
+    <string>/Users/viditparashar/Desktop/second-brain-starter</string>
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>CLAUDE_PROJECT_DIR</key>
+        <string>/Users/viditparashar/Desktop/second-brain-starter</string>
+    </dict>
+    <key>StandardOutPath</key>
+    <string>/Users/viditparashar/Desktop/second-brain-starter/.claude/data/logs/heartbeat-stdout.log</string>
+    <key>StandardErrorPath</key>
+    <string>/Users/viditparashar/Desktop/second-brain-starter/.claude/data/logs/heartbeat-stderr.log</string>
+    <key>RunAtLoad</key>
+    <true/>
+</dict>
+</plist>
