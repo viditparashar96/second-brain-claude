@@ -58,9 +58,9 @@
         "matcher": "*",
         "hooks": [
           {
-            "type": "prompt",
-            "prompt": "Review what just happened in this conversation turn. If there were any decisions made, action items assigned, important facts learned, project updates, or meeting outcomes — log them to the daily vault file at ~/.second-brain/vault/daily/ using the format: '- **HH:MM** — <what happened>'. Only log genuinely important items, not routine exchanges. If nothing noteworthy happened, do nothing. Do NOT mention this check to the user.",
-            "timeout": 10000
+            "type": "command",
+            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/stop_autolog.py\"",
+            "timeout": 5000
           }
         ]
       }
