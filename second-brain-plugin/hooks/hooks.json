@@ -1,4 +1,5 @@
 {
+  "description": "Second Brain lifecycle hooks — memory injection, context persistence, security guardrails",
   "hooks": {
     "SessionStart": [
       {
@@ -6,9 +7,9 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/session-start-context.py",
+            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/session_start.py\"",
             "timeout": 10000,
-            "statusMessage": "Loading memory vault..."
+            "statusMessage": "Loading Second Brain memory..."
           }
         ]
       }
@@ -19,7 +20,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/pre-compact-flush.py",
+            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/pre_compact.py\"",
             "timeout": 15000,
             "statusMessage": "Saving context before compaction..."
           }
@@ -28,11 +29,11 @@
     ],
     "SessionEnd": [
       {
-        "matcher": "",
+        "matcher": "*",
         "hooks": [
           {
             "type": "command",
-            "command": "python3 \"$CLAUDE_PROJECT_DIR\"/.claude/hooks/session-end-flush.py",
+            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/session_end.py\"",
             "timeout": 15000,
             "statusMessage": "Saving session context..."
           }
@@ -45,16 +46,12 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 \"$CLAUDE_PROJECT_DIR\"/.claude/scripts/shared.py",
+            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/guardrails.py\"",
             "timeout": 5000,
             "statusMessage": "Checking security guardrails..."
           }
         ]
       }
     ]
-  },
-  "enabledPlugins": {
-    "claude-code-setup@claude-plugins-official": true,
-    "context7@claude-plugins-official": true
   }
 }

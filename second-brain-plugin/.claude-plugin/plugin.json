@@ -1,0 +1,28 @@
+{
+  "name": "second-brain",
+  "version": "1.0.0",
+  "description": "AI-powered personal productivity system with persistent memory, integrations (Gmail, GitHub, Asana, Slack), hybrid RAG search, proactive monitoring, and a Slack chat bot",
+  "author": {
+    "name": "Vidit Parashar",
+    "email": "viditparashar96@gmail.com"
+  },
+  "repository": "https://github.com/viditparashar96/second-brain-plugin",
+  "homepage": "https://github.com/viditparashar96/second-brain-plugin",
+  "license": "MIT",
+  "keywords": [
+    "claude-code",
+    "plugin",
+    "second-brain",
+    "productivity",
+    "memory",
+    "integrations",
+    "gmail",
+    "github",
+    "asana",
+    "slack",
+    "rag",
+    "heartbeat"
+  ],
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json"
+}
