@@ -99,7 +99,8 @@ def promote_to_memory(extracted, source_date, dry_run=False):
     for key, header in SECTION_MAP.items():
         items = extracted.get(key, [])
         if items:
-            lines = [f"- {source_date} — {item}" for item in items if item.strip()]
+            lines = [f"- {source_date} — {item if isinstance(item, str) else json.dumps(item)}"
+                    for item in items if (item.strip() if isinstance(item, str) else item)]
             if lines:
                 additions[header] = lines
 
