@@ -5,4 +5,3 @@ __pycache__/
 .venv/
 .env
 .deps_installed
-data/google_oauth_client.json
