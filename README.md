@@ -14,7 +14,7 @@ AI-powered personal memory layer for Claude Code and Claude Desktop. Persistent 
 
 ```bash
 # Step 1: Add the marketplace (one time)
-/plugin marketplace add https://gitlab.com/your-org/second-brain-plugin
+/plugin marketplace add https://git.bngrenew.com/vidit.parashar/second-brain-claude-plugin
 
 # Step 2: Install the plugin
 /plugin install second-brain@blackngreen-tools
