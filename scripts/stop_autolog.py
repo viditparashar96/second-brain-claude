@@ -22,7 +22,7 @@ from datetime import datetime
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from config import VAULT_DIR, DAILY_DIR, LOG_DIR, PROJECTS_DIR, CLIENTS_DIR, TEAM_DIR, RESEARCH_DIR
+from config import VAULT_DIR, DAILY_DIR, LOG_DIR, PROJECTS_DIR, CLIENTS_DIR, TEAM_DIR, RESEARCH_DIR, get_memory_level
 
 CLAUDE_CLI = shutil.which("claude")
 
@@ -249,6 +249,11 @@ def append_to_daily(items, created_files):
 
 
 def main():
+    # Check memory level — only run on "full" mode
+    memory_level = get_memory_level()
+    if memory_level != "full":
+        sys.exit(0)
+
     try:
         input_data = json.load(sys.stdin)
     except Exception:

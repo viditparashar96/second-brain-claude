@@ -7,7 +7,7 @@ from datetime import datetime
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from config import VAULT_DIR, LOG_DIR
+from config import VAULT_DIR, LOG_DIR, get_memory_level
 
 
 def log_error(msg):
@@ -52,6 +52,10 @@ def main():
         json.load(sys.stdin)
     except Exception:
         pass
+
+    # Check memory level — if "off", skip memory injection
+    if get_memory_level() == "off":
+        sys.exit(0)
 
     parts = [
         read_file(VAULT_DIR / "SOUL.md", "SOUL"),

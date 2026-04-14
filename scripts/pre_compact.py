@@ -8,7 +8,7 @@ from datetime import datetime
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from config import DAILY_DIR, LOG_DIR
+from config import DAILY_DIR, LOG_DIR, get_memory_level
 
 FLUSH_MARKER = "[auto-saved before compaction]"
 
@@ -71,6 +71,9 @@ def extract_key_points(messages):
 
 
 def main():
+    if get_memory_level() == "off":
+        sys.exit(0)
+
     try:
         input_data = json.load(sys.stdin)
     except Exception:

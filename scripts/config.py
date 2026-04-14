@@ -95,6 +95,17 @@ def get_proactivity_level() -> str:
     return config.get("proactivity", "advisor")
 
 
+def get_memory_level() -> str:
+    """Get the memory level: 'full', 'light', or 'off'.
+
+    full  = SessionStart + Stop (CLI) + PreCompact + SessionEnd + guardrails
+    light = SessionStart + PreCompact + SessionEnd + guardrails (no Stop hook)
+    off   = Only guardrails (security)
+    """
+    config = load_config()
+    return config.get("memory_level", "full")
+
+
 def is_setup_complete() -> bool:
     """Check if the initial setup has been run."""
     return CONFIG_FILE.exists() and load_config().get("setup_complete", False)
