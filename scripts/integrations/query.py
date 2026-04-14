@@ -12,7 +12,7 @@ import registry
 
 def main():
     if len(sys.argv) < 2:
-        print("Usage: query.py {status|gmail|github|asana} <subcommand>")
+        print("Usage: query.py {status|gmail|gcal|github|asana} <subcommand>")
         sys.exit(1)
 
     command = sys.argv[1]
@@ -22,6 +22,9 @@ def main():
     elif command == "gmail":
         from gmail.cli import main as gmail_main
         gmail_main(sys.argv[2:])
+    elif command == "gcal":
+        from gcal.cli import main as gcal_main
+        gcal_main(sys.argv[2:])
     elif command == "github":
         from gh.cli import main as github_main
         github_main(sys.argv[2:])
@@ -29,7 +32,7 @@ def main():
         from asana_int.cli import main as asana_main
         asana_main(sys.argv[2:])
     else:
-        print(f"Unknown: {command}. Available: gmail, github, asana, status")
+        print(f"Unknown: {command}. Available: gmail, gcal, github, asana, status")
         sys.exit(1)
 
 

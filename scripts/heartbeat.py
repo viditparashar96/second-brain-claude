@@ -100,15 +100,51 @@ def gather_github():
         return {"error": str(e)}
 
 
+def gather_gcal():
+    try:
+        sys.path.insert(0, str(Path(__file__).resolve().parent / "integrations"))
+        from gcal.client import get_upcoming
+        upcoming = get_upcoming(minutes=30)
+        return {
+            "upcoming_count": len(upcoming),
+            "upcoming_events": [
+                {"summary": e.summary, "start": e.start.isoformat(), "attendees": e.attendees[:5]}
+                for e in upcoming
+            ],
+        }
+    except Exception as e:
+        log(f"Calendar: {e}")
+        return {"error": str(e)}
+
+
+def gather_meeting_followups():
+    try:
+        from meeting_followups import get_overdue_items, get_due_today
+        overdue = get_overdue_items()
+        due_today = get_due_today()
+        return {
+            "overdue_count": len(overdue),
+            "overdue_items": overdue[:5],
+            "due_today_count": len(due_today),
+            "due_today_items": due_today[:5],
+        }
+    except Exception as e:
+        log(f"Meeting followups: {e}")
+        return {"error": str(e)}
+
+
 def gather_all():
     enabled = get_enabled_integrations()
     snapshot = {"timestamp": datetime.now(IST).isoformat()}
     if "gmail" in enabled:
         snapshot["gmail"] = gather_gmail()
+    if "gcal" in enabled:
+        snapshot["gcal"] = gather_gcal()
     if "asana" in enabled:
         snapshot["asana"] = gather_asana()
     if "github" in enabled:
         snapshot["github"] = gather_github()
+    snapshot["meeting_followups"] = gather_meeting_followups()
     return snapshot
 
 
@@ -127,6 +163,25 @@ def diff_snapshots(old, new):
         changes["urgent"].append(f"{new_asana['overdue_count']} overdue Asana task(s)")
         for t in new_asana.get("overdue_tasks", [])[:3]:
             changes["urgent"].append(f"  - {t['name']} (due {t['due_on']})")
+
+    # Upcoming meetings
+    new_gcal = new.get("gcal", {})
+    if "error" not in new_gcal and new_gcal.get("upcoming_count", 0) > 0:
+        for e in new_gcal.get("upcoming_events", [])[:2]:
+            changes["urgent"].append(f"Meeting soon: {e['summary']} at {e['start']}")
+
+    # Meeting follow-up action items
+    followups = new.get("meeting_followups", {})
+    if "error" not in followups:
+        overdue_count = followups.get("overdue_count", 0)
+        if overdue_count > 0:
+            changes["urgent"].append(f"{overdue_count} overdue meeting action item(s)")
+            for item in followups.get("overdue_items", [])[:3]:
+                owner = f" [{item['owner']}]" if item.get("owner") else ""
+                changes["urgent"].append(f"  - {item['action']}{owner} (due {item['due_date']})")
+        due_today_count = followups.get("due_today_count", 0)
+        if due_today_count > 0:
+            changes["info"].append(f"{due_today_count} meeting action item(s) due today")
 
     return changes
 

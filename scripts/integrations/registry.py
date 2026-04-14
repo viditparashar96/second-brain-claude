@@ -44,8 +44,24 @@ def check_asana():
     return Integration("asana", "Asana (tasks)", True, "ready")
 
 
+def check_gcal():
+    token = CREDENTIALS_DIR / "gmail" / "token.json"
+    if not token.exists():
+        return Integration("gcal", "Google Calendar", False, "not authenticated")
+    # Check if calendar scope is in the token
+    try:
+        import json
+        data = json.loads(token.read_text())
+        scopes = data.get("scopes", [])
+        if any("calendar" in s for s in scopes):
+            return Integration("gcal", "Google Calendar", True, "ready")
+        return Integration("gcal", "Google Calendar", False, "calendar scope not granted")
+    except Exception:
+        return Integration("gcal", "Google Calendar", False, "token unreadable")
+
+
 def get_all():
-    return [check_gmail(), check_github(), check_asana()]
+    return [check_gmail(), check_gcal(), check_github(), check_asana()]
 
 
 def get_enabled():

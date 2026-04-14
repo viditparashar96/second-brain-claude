@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Second Brain Setup</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+  <!-- Main Setup Form -->
+  <div class="container" id="setup-form">
+    <div class="header">
+      <div class="header-icon">&#129504;</div>
+      <h1>Second Brain Setup</h1>
+      <p>Connect your tools in one place</p>
+    </div>
+
+    <!-- About You -->
+    <div class="section">
+      <div class="section-title">About You</div>
+      <div class="card">
+        <div class="form-group">
+          <label class="form-label" for="user-name">Name</label>
+          <input class="form-input" type="text" id="user-name" placeholder="Your name">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="user-role">Role</label>
+          <select class="form-select" id="user-role">
+            <option value="">Select your role</option>
+            <option value="Developer">Developer</option>
+            <option value="Designer">Designer</option>
+            <option value="Product Manager">Product Manager</option>
+            <option value="Sales">Sales</option>
+            <option value="HR">HR</option>
+            <option value="Management">Management</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="user-timezone">Timezone</label>
+          <select class="form-select" id="user-timezone">
+            <option value="">Select timezone</option>
+            <option value="IST (UTC+5:30)">IST (UTC+5:30)</option>
+            <option value="EST (UTC-5)">EST (UTC-5)</option>
+            <option value="CST (UTC-6)">CST (UTC-6)</option>
+            <option value="MST (UTC-7)">MST (UTC-7)</option>
+            <option value="PST (UTC-8)">PST (UTC-8)</option>
+            <option value="GMT (UTC+0)">GMT (UTC+0)</option>
+            <option value="CET (UTC+1)">CET (UTC+1)</option>
+            <option value="EET (UTC+2)">EET (UTC+2)</option>
+            <option value="JST (UTC+9)">JST (UTC+9)</option>
+            <option value="AEST (UTC+10)">AEST (UTC+10)</option>
+            <option value="UTC">UTC</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Proactivity Level</label>
+          <div class="radio-group">
+            <div class="radio-option">
+              <input type="radio" name="proactivity" id="p-observer" value="observer">
+              <label class="radio-label" for="p-observer">
+                <span class="radio-title">Observer</span>
+                <span class="radio-desc">Notify only</span>
+              </label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" name="proactivity" id="p-advisor" value="advisor">
+              <label class="radio-label" for="p-advisor">
+                <span class="radio-title">Advisor</span>
+                <span class="radio-desc">Draft for review</span>
+              </label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" name="proactivity" id="p-assistant" value="assistant" checked>
+              <label class="radio-label" for="p-assistant">
+                <span class="radio-title">Assistant</span>
+                <span class="radio-desc">Act on low-risk</span>
+              </label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" name="proactivity" id="p-partner" value="partner">
+              <label class="radio-label" for="p-partner">
+                <span class="radio-title">Partner</span>
+                <span class="radio-desc">Fully autonomous</span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Integrations -->
+    <div class="section">
+      <div class="section-title">Integrations</div>
+      <div class="card" style="padding: 8px;">
+        <div class="integration-list">
+
+          <!-- Gmail -->
+          <div class="integration-item" data-integration="gmail">
+            <div class="integration-info">
+              <div class="integration-icon">&#9993;</div>
+              <div>
+                <div class="integration-name">Gmail</div>
+                <div class="integration-detail" id="gmail-detail">Email reading &amp; drafting</div>
+              </div>
+            </div>
+            <span class="badge badge-disconnected" id="gmail-badge" onclick="connectGoogle()">
+              <span class="badge-dot"></span> Connect
+            </span>
+          </div>
+
+          <!-- Google Calendar -->
+          <div class="integration-item" data-integration="gcal">
+            <div class="integration-info">
+              <div class="integration-icon">&#128197;</div>
+              <div>
+                <div class="integration-name">Google Calendar</div>
+                <div class="integration-detail" id="gcal-detail">Meeting prep &amp; scheduling</div>
+              </div>
+            </div>
+            <span class="badge badge-disconnected" id="gcal-badge" onclick="connectGoogle()">
+              <span class="badge-dot"></span> Connect
+            </span>
+          </div>
+
+          <!-- GitHub -->
+          <div class="integration-item" data-integration="github">
+            <div class="integration-info">
+              <div class="integration-icon">&#128025;</div>
+              <div>
+                <div class="integration-name">GitHub</div>
+                <div class="integration-detail" id="github-detail">PRs, issues &amp; code review</div>
+              </div>
+            </div>
+            <span class="badge badge-disconnected" id="github-badge" onclick="openModal('github')">
+              <span class="badge-dot"></span> Connect
+            </span>
+          </div>
+
+          <!-- Asana -->
+          <div class="integration-item" data-integration="asana">
+            <div class="integration-info">
+              <div class="integration-icon">&#9776;</div>
+              <div>
+                <div class="integration-name">Asana</div>
+                <div class="integration-detail" id="asana-detail">Tasks &amp; deadlines</div>
+              </div>
+            </div>
+            <span class="badge badge-disconnected" id="asana-badge" onclick="openModal('asana')">
+              <span class="badge-dot"></span> Connect
+            </span>
+          </div>
+
+          <!-- Slack (Coming Soon) -->
+          <div class="integration-item" data-integration="slack">
+            <div class="integration-info">
+              <div class="integration-icon">&#128172;</div>
+              <div>
+                <div class="integration-name">Slack</div>
+                <div class="integration-detail">Chat &amp; channel summaries</div>
+              </div>
+            </div>
+            <span class="badge badge-coming-soon" id="slack-badge">Coming Soon</span>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Background Services -->
+    <div class="section">
+      <div class="section-title">Background Services</div>
+      <div class="card" style="padding: 8px;">
+        <div class="service-list">
+          <div class="service-item">
+            <label>
+              <input type="checkbox" id="svc-heartbeat" checked>
+              <div>
+                <div class="service-name">Heartbeat Monitor</div>
+                <div class="service-desc">Check integrations every 30 min, send notifications</div>
+              </div>
+            </label>
+          </div>
+          <div class="service-item">
+            <label>
+              <input type="checkbox" id="svc-indexer" checked>
+              <div>
+                <div class="service-name">Vault Indexer</div>
+                <div class="service-desc">Re-index memory for search every 15 min</div>
+              </div>
+            </label>
+          </div>
+          <div class="service-item">
+            <label>
+              <input type="checkbox" id="svc-reflection" checked>
+              <div>
+                <div class="service-name">Daily Reflection</div>
+                <div class="service-desc">Promote daily log items to long-term memory at 8 AM</div>
+              </div>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Complete Setup -->
+    <button class="btn btn-primary" id="btn-complete" onclick="completeSetup()">
+      Complete Setup
+    </button>
+  </div>
+
+  <!-- Success Screen -->
+  <div class="container success-screen" id="success-screen">
+    <div class="success-icon">&#10004;&#65039;</div>
+    <h2>You're all set!</h2>
+    <p>Your Second Brain is ready. You can close this tab and return to Claude Code.</p>
+    <div class="success-details">
+      <div>Vault: <span class="path" id="success-vault">~/.second-brain/vault/</span></div>
+      <div>Config: <span class="path" id="success-config">~/.second-brain/config.json</span></div>
+      <div id="success-integrations"></div>
+    </div>
+  </div>
+
+  <!-- GitHub Modal -->
+  <div class="modal-overlay" id="modal-github">
+    <div class="modal">
+      <h3>Connect GitHub</h3>
+      <p>Create a fine-grained Personal Access Token with these permissions:</p>
+      <ol class="modal-steps">
+        <li>Go to <a href="https://github.com/settings/tokens?type=beta" target="_blank" rel="noopener">GitHub Token Settings</a></li>
+        <li>Click <strong>Generate new token</strong></li>
+        <li>Select repositories you want to track</li>
+        <li>Permissions: <strong>Contents: Read</strong>, <strong>Pull Requests: Read/Write</strong>, <strong>Issues: Read/Write</strong></li>
+        <li>Copy the token and paste below</li>
+      </ol>
+      <input class="modal-input" type="password" id="github-token" placeholder="github_pat_...">
+      <div class="modal-error" id="github-error"></div>
+      <div class="modal-actions">
+        <button class="modal-btn modal-btn-cancel" onclick="closeModal('github')">Cancel</button>
+        <button class="modal-btn modal-btn-confirm" id="github-confirm" onclick="submitToken('github')">Connect</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Asana Modal -->
+  <div class="modal-overlay" id="modal-asana">
+    <div class="modal">
+      <h3>Connect Asana</h3>
+      <p>Create a Personal Access Token from Asana:</p>
+      <ol class="modal-steps">
+        <li>Go to <a href="https://app.asana.com/0/developer-console" target="_blank" rel="noopener">Asana Developer Console</a></li>
+        <li>Under <strong>Personal Access Tokens</strong>, click <strong>Create new token</strong></li>
+        <li>Name it "Second Brain" and create</li>
+        <li>Copy the token and paste below</li>
+      </ol>
+      <input class="modal-input" type="password" id="asana-token" placeholder="1/12345678...">
+      <div class="modal-error" id="asana-error"></div>
+      <div class="modal-actions">
+        <button class="modal-btn modal-btn-cancel" onclick="closeModal('asana')">Cancel</button>
+        <button class="modal-btn modal-btn-confirm" id="asana-confirm" onclick="submitToken('asana')">Connect</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Google Setup Modal -->
+  <div class="modal-overlay" id="modal-google">
+    <div class="modal">
+      <h3>Connect Google (Gmail + Calendar)</h3>
+      <p>You need a Google Cloud OAuth credential file. One-time setup:</p>
+      <ol class="modal-steps">
+        <li>Go to <a href="https://console.cloud.google.com/apis/credentials" target="_blank" rel="noopener">Google Cloud Console</a></li>
+        <li>Create a project (or select existing)</li>
+        <li>Enable <strong>Gmail API</strong> and <strong>Google Calendar API</strong></li>
+        <li>Go to <strong>Credentials</strong> → <strong>Create Credentials</strong> → <strong>OAuth client ID</strong></li>
+        <li>Application type: <strong>Desktop app</strong></li>
+        <li>Download the JSON file</li>
+        <li>Place it at:<br><code style="font-size:12px; color:var(--accent);">~/.second-brain/data/credentials/gmail/credentials.json</code></li>
+        <li>Come back here and click <strong>Retry</strong></li>
+      </ol>
+      <div class="modal-actions">
+        <button class="modal-btn modal-btn-cancel" onclick="closeModal('google')">Cancel</button>
+        <button class="modal-btn modal-btn-confirm" onclick="closeModal('google'); connectGoogle()">Retry</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

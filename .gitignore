@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+.omc/
+*.egg-info/
+.venv/
+.env
+.deps_installed
+data/google_oauth_client.json
