@@ -15,7 +15,31 @@ Interactive onboarding that configures your AI Second Brain step by step.
 
 **Data directory:** `~/.second-brain/`
 
+## Prerequisites
+
+Before starting, verify:
+1. **Python 3.10+** — Run: `python3 --version` (or `python --version` on Windows)
+   - If not installed: guide the user to https://python.org/downloads/
+   - On macOS: `brew install python@3.12` or download from python.org
+   - On Windows: Download from python.org, CHECK "Add to PATH" during install
+2. **Claude Code** — Must be installed and authenticated
+
 ## Workflow
+
+### Step 0: Detect OS and verify Python
+
+Run: `python3 -c "import sys, platform; print(f'{platform.system()}|{sys.version_info.major}.{sys.version_info.minor}')"`
+
+Parse the output:
+- First part = OS: `Darwin` (macOS), `Windows`, or `Linux`
+- Second part = Python version: must be 3.10+
+
+If Python not found or <3.10, tell the user:
+- macOS: "Install Python: `brew install python@3.12` or download from https://python.org/downloads/"
+- Windows: "Download Python from https://python.org/downloads/ — IMPORTANT: check 'Add to PATH' during install"
+- Linux: "Install Python: `sudo apt install python3` or `sudo dnf install python3`"
+
+Stop setup until Python is available.
 
 ### Step 1: Check if already set up
 
@@ -137,17 +161,30 @@ Write `~/.second-brain/config.json`:
 
 ### Step 9: Install background services
 
-Ask: "Want to install background services? They run silently on your Mac:"
+Ask: "Want to install background services? They run silently in the background:"
 - Heartbeat (checks integrations every 30 min, sends notifications)
 - Vault indexer (re-indexes for search every 15 min)
 - Daily reflection (promotes daily log items to MEMORY.md at 8am)
 
 If yes, run:
 ```bash
-bash "${CLAUDE_PLUGIN_ROOT}/scripts/launch_setup.sh" install "${CLAUDE_PLUGIN_ROOT}"
+python3 -c "
+import sys; sys.path.insert(0, '${CLAUDE_PLUGIN_ROOT}/scripts')
+from platform_utils import install_background_services
+venv_py = str('{HOME}/.second-brain/.venv/bin/python3')
+import platform
+if platform.system() == 'Windows':
+    venv_py = str('{HOME}/.second-brain/.venv/Scripts/python.exe')
+print(install_background_services('${CLAUDE_PLUGIN_ROOT}', '{HOME}/.second-brain', venv_py))
+"
 ```
 
-If no or not on macOS: skip, tell user they can run scripts manually.
+This auto-detects the OS:
+- **macOS**: installs launchd agents
+- **Windows**: creates Task Scheduler entries
+- **Linux**: creates systemd user timers
+
+If the user declines, tell them they can run scripts manually or install later.
 
 ### Step 10: Confirm completion
 

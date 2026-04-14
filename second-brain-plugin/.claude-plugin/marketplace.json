@@ -1,0 +1,33 @@
+{
+  "name": "blackngreen-tools",
+  "owner": {
+    "name": "Blackngreen",
+    "email": "viditparashar96@gmail.com"
+  },
+  "metadata": {
+    "description": "Blackngreen internal tools for Claude Code",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "second-brain",
+      "source": ".",
+      "description": "AI-powered personal memory layer for Claude Code — persistent memory, live integrations (Gmail, GitHub, Asana, Slack), proactive monitoring, and MCP server for Claude Desktop",
+      "version": "1.0.0",
+      "author": {
+        "name": "Vidit Parashar"
+      },
+      "category": "productivity",
+      "tags": [
+        "memory",
+        "productivity",
+        "gmail",
+        "github",
+        "asana",
+        "slack",
+        "rag",
+        "mcp"
+      ]
+    }
+  ]
+}
