@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "second-brain": {
+      "command": "python3",
+      "args": ["${CLAUDE_PLUGIN_ROOT}/mcp-server/server.py"],
+      "env": {
+        "SECOND_BRAIN_HOME": "${HOME}/.second-brain"
+      }
+    }
+  }
+}
