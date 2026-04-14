@@ -165,6 +165,26 @@ ensure_dirs()
 "
 ```
 
+**Step 7: Deploy Organization & Product Context (automatic)**
+
+Copy the pre-filled ORG.md and PRODUCTS.md from plugin templates to the vault. These contain the organization's company profile and full product registry — no user input needed.
+
+```bash
+# Copy org and product files if they don't already exist in vault
+for file in ORG.md PRODUCTS.md; do
+  if [ ! -f ~/.second-brain/vault/$file ]; then
+    cp "${CLAUDE_PLUGIN_ROOT}/templates/$file" ~/.second-brain/vault/$file
+    echo "Deployed $file to vault"
+  fi
+done
+```
+
+This ensures every team member who installs the plugin automatically gets:
+- **ORG.md** — Company profile, departments, strategic priorities
+- **PRODUCTS.md** — Full product registry (Nexiva, EVA, Voxa, MobiBattle, VAS, Digital Services, Medical Scribe, School Cab)
+
+These files are injected into every session and every skill has access to this context.
+
 ## Rules
 
 - Ask ONE question at a time in text mode — don't overwhelm the user

@@ -99,6 +99,7 @@ async def status():
             "timezone": user.get("timezone", ""),
         },
         "proactivity": config.get("proactivity", "assistant"),
+        "memory_level": config.get("memory_level", "full"),
         "integrations": {
             "gmail": gmail_status,
             "gcal": gcal_status,
@@ -123,6 +124,7 @@ async def save_profile(request: Request):
         "timezone": data.get("timezone", "").strip(),
     }
     config["proactivity"] = data.get("proactivity", "assistant")
+    config["memory_level"] = data.get("memory_level", "full")
 
     save_config(config)
     return {"status": "saved"}
@@ -235,6 +237,8 @@ async def complete_setup(request: Request):
         "MEMORY.md": "MEMORY.md",
         "HABITS.md": "HABITS.md",
         "HEARTBEAT.md": "HEARTBEAT.md",
+        "ORG.md": "ORG.md",
+        "PRODUCTS.md": "PRODUCTS.md",
     }
 
     created_files = []
@@ -246,8 +250,11 @@ async def complete_setup(request: Request):
             # Customize with user info
             user = config.get("user", {})
             content = content.replace("{{NAME}}", user.get("name", "User"))
+            content = content.replace("{{USER_NAME}}", user.get("name", "User"))
+            content = content.replace("{{USER_ROLE}}", user.get("role", "Developer"))
             content = content.replace("{{ROLE}}", user.get("role", "Developer"))
             content = content.replace("{{TIMEZONE}}", user.get("timezone", "UTC"))
+            content = content.replace("{{PROACTIVITY_LEVEL}}", config.get("proactivity", "advisor"))
             vault_path.write_text(content)
             created_files.append(vault_name)
 

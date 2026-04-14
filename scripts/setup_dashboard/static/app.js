@@ -53,6 +53,10 @@ function populateForm(data) {
     const radio = document.querySelector(`input[name="proactivity"][value="${data.proactivity}"]`);
     if (radio) radio.checked = true;
   }
+  if (data.memory_level) {
+    const radio = document.querySelector(`input[name="memory_level"][value="${data.memory_level}"]`);
+    if (radio) radio.checked = true;
+  }
 }
 
 function updateIntegrationBadges(integrations) {
@@ -225,6 +229,7 @@ async function completeSetup() {
   const role = document.getElementById('user-role').value;
   const timezone = document.getElementById('user-timezone').value;
   const proactivity = document.querySelector('input[name="proactivity"]:checked')?.value || 'assistant';
+  const memory_level = document.querySelector('input[name="memory_level"]:checked')?.value || 'full';
 
   // Validation
   if (!name) {
@@ -242,7 +247,7 @@ async function completeSetup() {
     await fetch('/api/profile', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, role, timezone, proactivity }),
+      body: JSON.stringify({ name, role, timezone, proactivity, memory_level }),
     });
 
     // Complete setup

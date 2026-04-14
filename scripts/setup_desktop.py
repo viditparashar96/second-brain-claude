@@ -34,11 +34,34 @@ def get_desktop_config_path() -> Path:
 
 
 def get_venv_python() -> str:
-    """Get the venv python path."""
-    venv = SECOND_BRAIN_HOME / ".venv" / "bin" / "python3"
+    """Get the venv python path (cross-platform)."""
+    if platform.system() == "Windows":
+        venv = SECOND_BRAIN_HOME / ".venv" / "Scripts" / "python.exe"
+    else:
+        venv = SECOND_BRAIN_HOME / ".venv" / "bin" / "python3"
     if venv.exists():
         return str(venv)
     return sys.executable
+
+
+def get_launcher_command() -> dict:
+    """Get the MCP server launch command based on OS."""
+    launcher_sh = PLUGIN_ROOT / "scripts" / "start_mcp.sh"
+
+    if platform.system() == "Windows":
+        # Windows: use venv python directly (no bash launcher)
+        python_path = get_venv_python()
+        server_path = str(PLUGIN_ROOT / "mcp-server" / "server.py")
+        return {
+            "command": python_path,
+            "args": [server_path],
+        }
+    else:
+        # macOS/Linux: use the launcher script (handles venv, deps, logging)
+        return {
+            "command": str(launcher_sh),
+            "args": [],
+        }
 
 
 def install():
@@ -57,12 +80,10 @@ def install():
         config["mcpServers"] = {}
 
     # Add Second Brain MCP server
-    server_path = str(PLUGIN_ROOT / "mcp-server" / "server.py")
-    python_path = get_venv_python()
+    launch = get_launcher_command()
 
     config["mcpServers"]["second-brain"] = {
-        "command": python_path,
-        "args": [server_path],
+        **launch,
         "env": {
             "SECOND_BRAIN_HOME": str(SECOND_BRAIN_HOME),
             "CLAUDE_PLUGIN_ROOT": str(PLUGIN_ROOT),
@@ -72,16 +93,24 @@ def install():
     config_path.write_text(json.dumps(config, indent=2))
 
     print("Second Brain MCP Server configured for Claude Desktop!")
-    print(f"  Config: {config_path}")
-    print(f"  Server: {server_path}")
-    print(f"  Python: {python_path}")
+    print(f"  Config:  {config_path}")
+    print(f"  Command: {launch['command']}")
+    log_path = SECOND_BRAIN_HOME / "data" / "logs" / "mcp-server.log"
+    print(f"  Logs:    {log_path}")
     print()
     print("What's available in Claude Desktop:")
     print("  Resources: SOUL.md, USER.md, MEMORY.md, HABITS.md, today's log")
     print("             (auto-loaded into every conversation)")
-    print("  Prompts:   status check, draft email, review PR, meeting notes,")
+    print()
+    print("  Prompts (20 total):")
+    print("    Core:    status check, draft email, review PR, meeting notes,")
     print("             catch me up, search knowledge")
-    print("  Tools:     16 tools — search, email, tasks, PRs, vault management")
+    print("    HR:      interview feedback, onboarding plan, performance review, policy lookup")
+    print("    Sales:   deal prep, draft proposal, pipeline review")
+    print("    Product: draft PRD, OKR update, 1:1 prep, stakeholder update")
+    print("    Ops:     create SOP, compliance check, process audit")
+    print()
+    print("  Tools: 20 tools — search, email, tasks, PRs, calendar, vault management")
     print()
     print("Restart Claude Desktop to connect.")
 

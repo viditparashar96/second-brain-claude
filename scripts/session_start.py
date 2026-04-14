@@ -95,6 +95,8 @@ def main():
     parts = [
         read_file(VAULT_DIR / "SOUL.md", "SOUL"),
         read_file(VAULT_DIR / "USER.md", "USER"),
+        read_file(VAULT_DIR / "ORG.md", "ORGANIZATION"),
+        read_file(VAULT_DIR / "PRODUCTS.md", "PRODUCTS"),
         read_file(VAULT_DIR / "MEMORY.md", "MEMORY"),
         get_recent_daily_logs(VAULT_DIR / "daily", count=3),
         read_file(VAULT_DIR / "HABITS.md", "HABITS"),
@@ -106,8 +108,9 @@ def main():
     if not context:
         context = "Second Brain vault not found. Run /second-brain:setup first."
 
-    if len(context) > 9500:
-        context = context[:9500] + "\n\n... (truncated)"
+    # Increased from 9500 to 15000 to accommodate ORG.md + PRODUCTS.md
+    if len(context) > 15000:
+        context = context[:15000] + "\n\n... (truncated)"
 
     print(context)
     sys.exit(0)
