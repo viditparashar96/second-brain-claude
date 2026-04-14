@@ -72,6 +72,15 @@ def ensure_dirs():
         VAULT_DIR / "ops" / "sops", VAULT_DIR / "ops" / "vendors",
         VAULT_DIR / "ops" / "compliance", VAULT_DIR / "ops" / "audits",
         VAULT_DIR / "ops" / "allocation",
+        # Engineering
+        VAULT_DIR / "eng" / "incidents", VAULT_DIR / "eng" / "postmortems",
+        VAULT_DIR / "eng" / "bugs", VAULT_DIR / "eng" / "adrs",
+        VAULT_DIR / "eng" / "reviews", VAULT_DIR / "eng" / "releases",
+        VAULT_DIR / "eng" / "retros", VAULT_DIR / "eng" / "onboarding",
+        VAULT_DIR / "eng" / "tech-debt", VAULT_DIR / "eng" / "deployments",
+        VAULT_DIR / "eng" / "runbooks", VAULT_DIR / "eng" / "api-specs",
+        VAULT_DIR / "eng" / "api-docs",
+        VAULT_DIR / "eng" / "plans",
     ]:
         d.mkdir(parents=True, exist_ok=True)
 
