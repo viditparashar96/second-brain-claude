@@ -20,8 +20,10 @@ import sys
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
-# Add scripts to path
-PLUGIN_ROOT = Path(os.environ.get("CLAUDE_PLUGIN_ROOT", Path(__file__).resolve().parent.parent))
+# Add scripts to path — always resolve relative to this file for reliability
+# (env var can be empty/wrong when Claude Desktop restarts the server)
+_env_root = os.environ.get("CLAUDE_PLUGIN_ROOT", "").strip()
+PLUGIN_ROOT = Path(_env_root) if _env_root and Path(_env_root).is_dir() else Path(__file__).resolve().parent.parent
 SCRIPTS_DIR = PLUGIN_ROOT / "scripts"
 sys.path.insert(0, str(SCRIPTS_DIR))
 sys.path.insert(0, str(SCRIPTS_DIR / "integrations"))
@@ -53,7 +55,8 @@ except ImportError as e:
     logger.error(f"Failed to import mcp package: {e}")
     logger.error("Hint: Ensure the venv exists and has 'mcp' installed.")
     logger.error(f"  Venv path: {_sb_home / '.venv'}")
-    logger.error(f"  Try: {_sb_home / '.venv' / 'bin' / 'pip'} install mcp")
+    _pip = _sb_home / '.venv' / ('Scripts' if sys.platform == 'win32' else 'bin') / 'pip'
+    logger.error(f"  Try: {_pip} install mcp")
     raise
 
 mcp = FastMCP("Second Brain")

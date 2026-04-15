@@ -8,7 +8,12 @@ set -euo pipefail
 SECOND_BRAIN_HOME="${SECOND_BRAIN_HOME:-$HOME/.second-brain}"
 PLUGIN_ROOT="${CLAUDE_PLUGIN_ROOT:-$(cd "$(dirname "$0")/.." && pwd)}"
 VENV_DIR="$SECOND_BRAIN_HOME/.venv"
-VENV_PYTHON="$VENV_DIR/bin/python3"
+# Cross-platform venv Python path
+if [ -f "$VENV_DIR/Scripts/python.exe" ]; then
+    VENV_PYTHON="$VENV_DIR/Scripts/python.exe"
+else
+    VENV_PYTHON="$VENV_DIR/bin/python3"
+fi
 SERVER="$PLUGIN_ROOT/mcp-server/server.py"
 LOG_FILE="$SECOND_BRAIN_HOME/data/logs/mcp-server.log"
 
