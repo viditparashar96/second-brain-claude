@@ -19,8 +19,10 @@ from pathlib import Path
 try:
     from ensure_deps import activate
     activate()
-except Exception:
-    pass  # First run or ensure_deps not yet available
+except Exception as e:
+    import logging
+    logging.debug(f"ensure_deps.activate() skipped: {e}")
+    # First run, no network, or ensure_deps not yet available — continue with system packages
 
 # Core paths
 SECOND_BRAIN_HOME = Path(os.environ.get("SECOND_BRAIN_HOME", Path.home() / ".second-brain"))
@@ -50,10 +52,35 @@ DRAFTS_DIR = VAULT_DIR / "drafts"
 def ensure_dirs():
     """Create all required directories if they don't exist."""
     for d in [
+        # Core
         VAULT_DIR, DATA_DIR, STATE_DIR, LOG_DIR, CREDENTIALS_DIR,
         MODEL_CACHE_DIR, DAILY_DIR, MEETINGS_DIR, PROJECTS_DIR,
         CLIENTS_DIR, TEAM_DIR, RESEARCH_DIR, CONTENT_DIR,
         DRAFTS_DIR / "active", DRAFTS_DIR / "sent", DRAFTS_DIR / "expired",
+        # HR
+        VAULT_DIR / "hr" / "interviews", VAULT_DIR / "hr" / "onboarding",
+        VAULT_DIR / "hr" / "reviews", VAULT_DIR / "hr" / "policies",
+        VAULT_DIR / "hr" / "pto",
+        # Sales
+        VAULT_DIR / "sales" / "briefs", VAULT_DIR / "sales" / "proposals",
+        VAULT_DIR / "sales" / "follow-ups", VAULT_DIR / "sales" / "competitors",
+        VAULT_DIR / "sales" / "pipeline",
+        # Product
+        VAULT_DIR / "product" / "prds", VAULT_DIR / "product" / "okrs",
+        VAULT_DIR / "product" / "updates", VAULT_DIR / "product" / "feedback",
+        # Operations
+        VAULT_DIR / "ops" / "sops", VAULT_DIR / "ops" / "vendors",
+        VAULT_DIR / "ops" / "compliance", VAULT_DIR / "ops" / "audits",
+        VAULT_DIR / "ops" / "allocation",
+        # Engineering
+        VAULT_DIR / "eng" / "incidents", VAULT_DIR / "eng" / "postmortems",
+        VAULT_DIR / "eng" / "bugs", VAULT_DIR / "eng" / "adrs",
+        VAULT_DIR / "eng" / "reviews", VAULT_DIR / "eng" / "releases",
+        VAULT_DIR / "eng" / "retros", VAULT_DIR / "eng" / "onboarding",
+        VAULT_DIR / "eng" / "tech-debt", VAULT_DIR / "eng" / "deployments",
+        VAULT_DIR / "eng" / "runbooks", VAULT_DIR / "eng" / "api-specs",
+        VAULT_DIR / "eng" / "api-docs",
+        VAULT_DIR / "eng" / "plans",
     ]:
         d.mkdir(parents=True, exist_ok=True)
 
@@ -95,6 +122,17 @@ def get_proactivity_level() -> str:
     return config.get("proactivity", "advisor")
 
 
+def get_memory_level() -> str:
+    """Get the memory level: 'full', 'light', or 'off'.
+
+    full  = SessionStart + Stop (CLI) + PreCompact + SessionEnd + guardrails
+    light = SessionStart + PreCompact + SessionEnd + guardrails (no Stop hook)
+    off   = Only guardrails (security)
+    """
+    config = load_config()
+    return config.get("memory_level", "full")
+
+
 def is_setup_complete() -> bool:
     """Check if the initial setup has been run."""
     return CONFIG_FILE.exists() and load_config().get("setup_complete", False)
@@ -103,5 +141,14 @@ def is_setup_complete() -> bool:
 # Load .env from second-brain home if it exists
 _env_path = SECOND_BRAIN_HOME / ".env"
 if _env_path.exists():
-    from dotenv import load_dotenv
-    load_dotenv(str(_env_path))
+    try:
+        from dotenv import load_dotenv
+        load_dotenv(str(_env_path))
+    except ImportError:
+        # python-dotenv not installed yet — load .env manually
+        with open(_env_path) as f:
+            for line in f:
+                line = line.strip()
+                if line and not line.startswith("#") and "=" in line:
+                    key, _, value = line.partition("=")
+                    os.environ.setdefault(key.strip(), value.strip().strip("\"'"))

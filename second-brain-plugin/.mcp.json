@@ -4,7 +4,8 @@
       "command": "python3",
       "args": ["${CLAUDE_PLUGIN_ROOT}/mcp-server/server.py"],
       "env": {
-        "SECOND_BRAIN_HOME": "${HOME}/.second-brain"
+        "SECOND_BRAIN_HOME": "${HOME}/.second-brain",
+        "CLAUDE_PLUGIN_ROOT": "${CLAUDE_PLUGIN_ROOT}"
       }
     }
   }

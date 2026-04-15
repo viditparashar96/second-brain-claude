@@ -11,9 +11,12 @@
   "plugins": [
     {
       "name": "second-brain",
-      "source": ".",
+      "source": {
+        "source": "github",
+        "repo": "viditparashar96/second-brain-claude"
+      },
       "description": "AI-powered personal memory layer for Claude Code — persistent memory, live integrations (Gmail, GitHub, Asana, Slack), proactive monitoring, and MCP server for Claude Desktop",
-      "version": "1.0.0",
+      "version": "1.1.1",
       "author": {
         "name": "Vidit Parashar"
       },

@@ -1,12 +1,12 @@
 {
   "name": "second-brain-plugin",
-  "version": "1.0.0",
+  "version": "1.1.1",
   "description": "AI Second Brain plugin for Claude Code — persistent memory, integrations, proactive monitoring",
   "author": "Vidit Parashar <viditparashar96@gmail.com>",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://git.bngrenew.com/vidit.parashar/second-brain-claude-plugin.git"
+    "url": "https://github.com/viditparashar96/second-brain-claude.git"
   },
   "keywords": [
     "claude-code",
