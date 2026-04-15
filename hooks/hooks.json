@@ -7,7 +7,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/session_start.py\"",
+            "command": "if command -v python3 >/dev/null 2>&1; then python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/session_start.py\"; else python \"${CLAUDE_PLUGIN_ROOT}/scripts/session_start.py\"; fi",
             "timeout": 10000,
             "statusMessage": "Loading Second Brain memory..."
           }
@@ -20,7 +20,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/pre_compact.py\"",
+            "command": "if command -v python3 >/dev/null 2>&1; then python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/pre_compact.py\"; else python \"${CLAUDE_PLUGIN_ROOT}/scripts/pre_compact.py\"; fi",
             "timeout": 15000,
             "statusMessage": "Saving context before compaction..."
           }
@@ -33,7 +33,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/session_end.py\"",
+            "command": "if command -v python3 >/dev/null 2>&1; then python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/session_end.py\"; else python \"${CLAUDE_PLUGIN_ROOT}/scripts/session_end.py\"; fi",
             "timeout": 15000,
             "statusMessage": "Saving session context..."
           }
@@ -46,7 +46,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/guardrails.py\"",
+            "command": "if command -v python3 >/dev/null 2>&1; then python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/guardrails.py\"; else python \"${CLAUDE_PLUGIN_ROOT}/scripts/guardrails.py\"; fi",
             "timeout": 5000,
             "statusMessage": "Checking security guardrails..."
           }
@@ -59,7 +59,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/stop_autolog.py\"",
+            "command": "if command -v python3 >/dev/null 2>&1; then python3 \"${CLAUDE_PLUGIN_ROOT}/scripts/stop_autolog.py\"; else python \"${CLAUDE_PLUGIN_ROOT}/scripts/stop_autolog.py\"; fi",
             "timeout": 5000
           }
         ]

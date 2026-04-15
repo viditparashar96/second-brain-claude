@@ -108,6 +108,11 @@ def main():
     if not context:
         context = "Second Brain vault not found. Run /second-brain:setup first."
 
+    # Cross-platform Python command detection
+    python_cmd = "python3" if sys.platform != "win32" else "python"
+    venv_suffix = "bin/python3" if sys.platform != "win32" else "Scripts/python.exe"
+    context += f"\n\n---\n\n## Platform\n\n**Python command:** `{python_cmd}` — use this instead of hardcoded `python3` in all bash commands.\n**Venv Python:** `.venv/{venv_suffix}`"
+
     # Increased from 9500 to 15000 to accommodate ORG.md + PRODUCTS.md
     if len(context) > 15000:
         context = context[:15000] + "\n\n... (truncated)"

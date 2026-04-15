@@ -32,14 +32,16 @@ Default to `status` if no argument given.
 ### For `install`:
 
 ```bash
+# Use python3 on macOS/Linux, python on Windows
 python3 -c "
 import sys, os, platform
 sys.path.insert(0, '${CLAUDE_PLUGIN_ROOT}/scripts')
 from platform_utils import install_background_services
 sb_home = os.path.expanduser('~/.second-brain')
-venv_py = os.path.join(sb_home, '.venv', 'bin', 'python3')
 if platform.system() == 'Windows':
     venv_py = os.path.join(sb_home, '.venv', 'Scripts', 'python.exe')
+else:
+    venv_py = os.path.join(sb_home, '.venv', 'bin', 'python3')
 result = install_background_services('${CLAUDE_PLUGIN_ROOT}', sb_home, venv_py)
 print(result)
 "
@@ -50,6 +52,7 @@ Tell the user what was installed and on which OS (macOS → launchd, Windows →
 ### For `uninstall`:
 
 ```bash
+# Use python3 on macOS/Linux, python on Windows
 python3 -c "
 import sys; sys.path.insert(0, '${CLAUDE_PLUGIN_ROOT}/scripts')
 from platform_utils import uninstall_background_services
@@ -60,6 +63,7 @@ print(uninstall_background_services())
 ### For `status`:
 
 ```bash
+# Use python3 on macOS/Linux, python on Windows
 python3 -c "
 import sys; sys.path.insert(0, '${CLAUDE_PLUGIN_ROOT}/scripts')
 from platform_utils import get_service_status
