@@ -45,23 +45,18 @@ def get_venv_python() -> str:
 
 
 def get_launcher_command() -> dict:
-    """Get the MCP server launch command based on OS."""
-    launcher_sh = PLUGIN_ROOT / "scripts" / "start_mcp.sh"
+    """Get the MCP server launch command based on OS.
 
-    if platform.system() == "Windows":
-        # Windows: use venv python directly (no bash launcher)
-        python_path = get_venv_python()
-        server_path = str(PLUGIN_ROOT / "mcp-server" / "server.py")
-        return {
-            "command": python_path,
-            "args": [server_path],
-        }
-    else:
-        # macOS/Linux: use the launcher script (handles venv, deps, logging)
-        return {
-            "command": str(launcher_sh),
-            "args": [],
-        }
+    Uses the venv Python directly on all platforms.
+    Shell script launchers get blocked by macOS Gatekeeper
+    ("Operation not permitted") when invoked by Claude Desktop.
+    """
+    python_path = get_venv_python()
+    server_path = str(PLUGIN_ROOT / "mcp-server" / "server.py")
+    return {
+        "command": python_path,
+        "args": [server_path],
+    }
 
 
 def install():
