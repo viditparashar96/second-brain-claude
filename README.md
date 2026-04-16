@@ -1,64 +1,163 @@
-# Second Brain — Claude Code Plugin
+# Second Brain — AI Memory & Productivity System
 
-AI-powered personal memory layer for Claude Code and Claude Desktop. Persistent memory, live integrations, proactive monitoring, and auto-learning from every conversation.
+AI-powered personal memory layer for Claude Code and Claude Desktop. Persistent cloud memory, live integrations (Gmail, GitHub, Asana, Google Calendar), 49 skills, 4 agents, and 22 MCP prompts.
 
-## Prerequisites
+## Architecture
 
-- **Claude Code** — installed and authenticated
-- **Python 3.10+** — [python.org/downloads](https://python.org/downloads/)
-  - macOS: `brew install python@3.12` or download from python.org
-  - Windows: Download from python.org — **check "Add to PATH" during install**
-  - Linux: `sudo apt install python3` or `sudo dnf install python3`
+```
+┌──────────────────────────────────────────────────────────────┐
+│                    CLOUD (for everyone)                       │
+│                                                               │
+│  MCP Server: https://second-brain-cloud-app.azurewebsites.net│
+│  Dashboard:  (same URL, port +1)                              │
+│  Database:   NeonDB (Postgres + pgvector)                     │
+│  Reflection: AWS Bedrock (Claude Haiku)                       │
+│  Repo:       github.com/viditparashar96/second-brain-cloud    │
+│                                                               │
+│  22 MCP tools │ 22 MCP prompts │ 7 MCP resources              │
+│  Per-user vault │ Hybrid RAG search │ Auto-memory              │
+└──────────────────────────┬───────────────────────────────────┘
+                           │
+              MCP over HTTPS (?key=sb_xxx)
+                           │
+          ┌────────────────┼────────────────┐
+          │                │                │
+   Claude Desktop    Claude Code      claude.ai
+   (HR, Sales, Ops)  + This Plugin    (web users)
+                     (Engineers)
+```
 
-## Install (Team — from GitLab/GitHub)
+## Cloud MCP Server
+
+The cloud MCP server provides shared memory, integrations, and prompts for all users. No local install needed — just connect with your unique URL.
+
+**Production URL:**
+```
+https://second-brain-cloud-app.azurewebsites.net/mcp?key=YOUR_API_KEY
+```
+
+**Cloud Repo:** [github.com/viditparashar96/second-brain-cloud](https://github.com/viditparashar96/second-brain-cloud) (private)
+
+### What the Cloud Provides
+
+| Feature | Count | Details |
+|---------|-------|---------|
+| **MCP Tools** | 22 | Vault CRUD, search, logging, Gmail, GitHub, Asana, GCal, status |
+| **MCP Prompts** | 22 | Core, HR, Sales, Product, Ops, Org workflows |
+| **MCP Resources** | 7 | SOUL, USER, ORG, PRODUCTS, MEMORY, HABITS, Today's log |
+| **Search** | Hybrid RAG | pgvector (semantic) + PostgreSQL FTS (keyword), 70/30 merge |
+| **Memory** | Auto | SOUL.md rules make Claude log everything important |
+| **Reflection** | Daily | Bedrock extracts decisions/actions → MEMORY.md |
+
+## Connect: Claude Code (Engineers)
+
+### Step 1: Install Plugin (for skills + agents)
 
 ```bash
-# Step 1: Add the marketplace (one time)
+# Add marketplace
 /plugin marketplace add https://github.com/viditparashar96/second-brain-claude
 
-# Step 2: Install the plugin
+# Install
 /plugin install second-brain@blackngreen-tools
-
-# Step 3: Run the setup wizard
-/second-brain:setup
 ```
 
-The setup wizard walks you through:
-1. Python version check
-2. Your profile (name, role, timezone)
-3. Proactivity level (Observer → Partner)
-4. Integration setup (Gmail, GitHub, Asana, Slack) — with guided auth
-5. Claude API config (Bedrock / API key / Claude Max CLI)
-6. Vault creation at `~/.second-brain/vault/`
-7. Background services (macOS/Windows/Linux)
-
-## Install (Development — local)
+### Step 2: Connect Cloud Memory (global — works in every project)
 
 ```bash
-claude --plugin-dir /path/to/second-brain-plugin
+claude mcp add second-brain-cloud "https://second-brain-cloud-app.azurewebsites.net/mcp?key=YOUR_API_KEY" -t http -s user
 ```
 
-## What It Does
+Get your API key from the admin dashboard.
 
-Once installed, your Claude Code sessions automatically:
-- **Load your memory** — SOUL.md, USER.md, MEMORY.md, recent logs injected at session start
-- **Auto-log decisions** — Stop hook extracts decisions, action items, new entities from every conversation
-- **Auto-create vault files** — Mention a new project or client naturally, a vault file appears
-- **Save context before compaction** — Nothing lost in long sessions
+### Step 3: Use It
 
-## Skills
+```
+# Skills (from plugin)
+/eng-plan build GPS tracking for School Cab
+/eng-code-review
+/meeting-notes
 
+# Cloud memory (from MCP — works automatically)
+"search my memory for Nexiva"
+"log a note: decided to use pgvector"
+"what's on my calendar today?"
+"run daily reflection"
+```
+
+Skills call cloud MCP tools automatically — all decisions, meetings, and outcomes are logged to your cloud vault.
+
+## Connect: Claude Desktop (HR, Sales, Ops, Product)
+
+### Step 1: Admin Creates User
+
+Admin creates user on the dashboard or via API. Each user gets a unique API key.
+
+### Step 2: Add to Claude Desktop
+
+Edit `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS) or `%APPDATA%\Claude\claude_desktop_config.json` (Windows):
+
+```json
+{
+  "mcpServers": {
+    "second-brain": {
+      "command": "npx",
+      "args": ["mcp-remote", "https://second-brain-cloud-app.azurewebsites.net/mcp?key=YOUR_API_KEY"]
+    }
+  }
+}
+```
+
+Restart Claude Desktop (Cmd+Q → reopen).
+
+### Step 3: Use It
+
+- Click **"+"** button → see 22 prompts (Status Check, Draft Email, Deal Prep, Meeting Notes, etc.)
+- Just chat — Claude auto-uses tools (search memory, check tasks, draft emails)
+- Memory builds automatically — Claude logs decisions, creates vault files, tracks projects
+
+## Connect: claude.ai (Web)
+
+Add as a Custom Connector in Settings → Connectors:
+```
+URL: https://second-brain-cloud-app.azurewebsites.net/mcp?key=YOUR_API_KEY
+```
+
+## Plugin Skills (49)
+
+Available in Claude Code via `/skill-name`:
+
+### Engineering (14)
 | Skill | What it does |
 |-------|-------------|
-| `/second-brain:setup` | Onboarding wizard |
-| `/second-brain:status` | Quick overview from all integrations |
-| `/second-brain:heartbeat` | Manual integration health check |
-| `/second-brain:reflect` | Promote daily log items to long-term memory |
-| `/second-brain:meeting-notes` | Structured meeting capture |
-| `/second-brain:code-review` | Automated PR review sweep |
-| `/second-brain:email-drafter` | Draft emails in your voice |
-| `/second-brain:vault-structure` | File organization rules |
-| `/second-brain:uninstall` | Clean removal |
+| `/eng-plan` | Implementation planner with phases, estimates, gates |
+| `/eng-code-review` | Multi-pass code review (correctness, security, performance) |
+| `/eng-debug-rca` | Hypothesis-driven debugging and root cause analysis |
+| `/eng-architecture-decision` | ADR creator with trade-off analysis |
+| `/eng-api-design` | API design review and OpenAPI spec generation |
+| `/eng-deploy-checklist` | Pre/post deploy validation and rollback procedures |
+| `/eng-incident-response` | Multi-phase incident response with diagnostics |
+| `/eng-release-notes` | Git-driven release note generator |
+| `/eng-sprint-retro` | Sprint retrospective facilitator |
+| `/eng-tech-debt` | Tech debt tracker with business-impact scoring |
+| `/eng-dev-onboarding` | Developer onboarding plan generator |
+| `/code-review` | Quick PR review sweep |
+| `/email-drafter` | Draft emails in your voice |
+| `/meeting-notes` | Structured meeting capture with action items |
+
+### Product (7)
+`/product-prd-drafter` · `/product-manager` · `/product-feedback-synthesis` · `/product-stakeholder-update` · `/product-one-on-one` · `/product-okr-tracker` · `/meeting-prep`
+
+### Sales (6)
+`/sales-deal-prep` · `/sales-proposal-drafter` · `/sales-follow-up` · `/sales-competitive-analysis` · `/sales-pipeline-review`
+
+### HR (6)
+`/hr-interview-feedback` · `/hr-onboarding-checklist` · `/hr-performance-review` · `/hr-policy-lookup` · `/hr-pto-tracker`
+
+### Operations (5)
+`/ops-compliance-checklist` · `/ops-process-audit` · `/ops-resource-allocation` · `/ops-sop-creator` · `/ops-vendor-management`
+
+### Core
+`/second-brain:setup` · `/second-brain:status` · `/second-brain:heartbeat` · `/second-brain:reflect` · `/second-brain:memory` · `/second-brain:services` · `/second-brain:uninstall` · `/org-manager` · `/vault-structure`
 
 ## Agents
 
@@ -76,66 +175,45 @@ Once installed, your Claude Code sessions automatically:
 | Gmail | OAuth2 | Read, search, draft (never sends) |
 | GitHub | Fine-grained PAT | PRs, issues, diffs, review comments |
 | Asana | PAT | Tasks, deadlines, projects |
-| Slack | Bot + App tokens | Chat bot, channel summaries |
+| Google Calendar | OAuth2 (shared with Gmail) | Events, meetings, attendees |
 
-## Claude Desktop (MCP Server)
+Integrations are connected per-user via the admin dashboard. Credentials stored encrypted in NeonDB.
 
-For non-technical users (HR, Sales, Management) who use Claude Desktop instead of Claude Code:
-
-```bash
-# Run once after /second-brain:setup
-python3 /path/to/second-brain-plugin/scripts/setup_desktop.py
-```
-
-Then restart Claude Desktop. Available:
-- **5 Resources** — SOUL.md, USER.md, MEMORY.md, HABITS.md, today's log (auto-loaded)
-- **6 Prompts** — Status Check, Draft Email, Review PR, Meeting Notes, Catch Me Up, Search Knowledge
-- **17 Tools** — search_memory, list_emails, draft_email, overdue_tasks, etc.
-
-## Background Services
-
-Installed during setup (optional). Auto-detects OS:
-
-| Service | macOS | Windows | Linux | Schedule |
-|---------|-------|---------|-------|----------|
-| Heartbeat | launchd | Task Scheduler | systemd | Every 30 min |
-| Vault indexer | launchd | Task Scheduler | systemd | Every 15 min |
-| Daily reflection | launchd | Task Scheduler | systemd | 8:00 AM |
-
-Check status:
-```bash
-python3 -c "import sys; sys.path.insert(0, 'PLUGIN_PATH/scripts'); from platform_utils import get_service_status; print(get_service_status())"
-```
-
-## Data Location
+## How Memory Builds Automatically
 
 ```
-~/.second-brain/
-├── vault/          ← Your memory (Obsidian-compatible)
-├── data/           ← SQLite DBs, model cache, logs
-├── .venv/          ← Plugin's Python venv (auto-managed)
-├── .env            ← API tokens (never committed)
-└── config.json     ← Plugin configuration
+User chats with Claude (Desktop or Code)
+    │
+    ▼
+SOUL.md loaded → Claude reads auto-memory rules
+    │
+    ├── Decisions → log_note → embedded in pgvector → searchable
+    ├── Meetings → create_vault_file → indexed → searchable
+    ├── New clients → create_vault_file → indexed → searchable
+    ├── Action items → log_note → embedded → searchable
+    │
+    └── Daily 8AM → Bedrock reflection → MEMORY.md (permanent knowledge)
 ```
 
-## Uninstall
+No commands needed. Claude follows SOUL.md rules and auto-logs everything important.
 
-```bash
-# In Claude Code
-/second-brain:uninstall
+## Infrastructure
 
-# Or manually
-rm -rf ~/.second-brain          # Delete all data
-/plugin uninstall second-brain  # Remove plugin
-```
+| Service | URL / Location | Cost |
+|---------|---------------|------|
+| Cloud MCP Server | `second-brain-cloud-app.azurewebsites.net` | Azure Free (F1) |
+| Database | NeonDB (ap-southeast-1) | Free tier |
+| Reflection LLM | AWS Bedrock (us-east-1) Claude Haiku | ~$0.02/mo |
+| Plugin repo | `github.com/viditparashar96/second-brain-claude` | Free |
+| Cloud repo | `github.com/viditparashar96/second-brain-cloud` | Free (private) |
 
 ## Platform Support
 
-| OS | Claude Code Plugin | Claude Desktop MCP | Background Services |
-|----|-------------------|-------------------|-------------------|
-| macOS | Full | Full | launchd |
-| Windows | Full | Full | Task Scheduler |
-| Linux | Full | Full | systemd |
+| OS | Claude Code + Plugin | Claude Desktop (Cloud MCP) | claude.ai (Cloud MCP) |
+|----|---------------------|---------------------------|----------------------|
+| macOS | Full | Full | Full |
+| Windows | Full | Full | Full |
+| Linux | Full | Full | Full |
 
 ## License
 
