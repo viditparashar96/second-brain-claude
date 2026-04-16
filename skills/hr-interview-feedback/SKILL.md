@@ -142,3 +142,5 @@ Examples:
 - **No anonymous feedback** — Always include interviewer name
 - **Scores should reflect role requirements** — A 3 in leadership might be right for IC roles, unacceptable for managers
 - Do not create scorecard until you have at least 70% of the information
+
+- **Cloud memory:** After completing this workflow, call the `log_note` MCP tool with a one-line summary of what was done. Example: `log_note("Completed eng-plan for School Cab — 9 phases, 22 days")`

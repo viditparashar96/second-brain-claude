@@ -261,3 +261,5 @@ Examples:
 - **Track progress** — Update team/{Name}.md as milestones are hit
 - **Feedback loop** — After the new hire's 30-day review, update this template if something worked better or is missing
 - Onboarding plans must include product-specific context from PRODUCTS.md — which products the team owns, key repos, and stakeholders.
+
+- **Cloud memory:** After completing this workflow, call the `log_note` MCP tool with a one-line summary of what was done. Example: `log_note("Completed eng-plan for School Cab — 9 phases, 22 days")`

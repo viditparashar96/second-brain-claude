@@ -228,3 +228,5 @@ Use this optional section in pipeline files to track over time:
 | Deals Closed (YTD) | [X] | [X] | [+X] |
 | Average Close Time | [X] days | [X] days | [+/-X] |
 ```
+
+- **Cloud memory:** After completing this workflow, call the `log_note` MCP tool with a one-line summary of what was done. Example: `log_note("Completed eng-plan for School Cab — 9 phases, 22 days")`

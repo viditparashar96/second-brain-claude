@@ -282,3 +282,5 @@ Track for analytics: common questions might mean gaps or confusion in communicat
 - **Legal review** — For sensitive policies (discrimination, leave, harassment), recommend legal review before finalizing
 - **Consistency** — Check existing policies before drafting new ones to avoid contradictions
 - **Regular audit** — Recommend HR periodically review all policies for currency and accuracy
+
+- **Cloud memory:** After completing this workflow, call the `log_note` MCP tool with a one-line summary of what was done. Example: `log_note("Completed eng-plan for School Cab — 9 phases, 22 days")`

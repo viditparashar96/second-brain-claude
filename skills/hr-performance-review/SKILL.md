@@ -256,3 +256,5 @@ Examples:
 - **Timeline matters** — Don't ask for promotion feedback if they've been in role <6 months
 - **Peer feedback sensitivity** — Summarize themes; don't single out one critical peer or create drama
 - Performance reviews should reference the products the employee's team owns (from PRODUCTS.md) to properly contextualize their contributions.
+
+- **Cloud memory:** After completing this workflow, call the `log_note` MCP tool with a one-line summary of what was done. Example: `log_note("Completed eng-plan for School Cab — 9 phases, 22 days")`

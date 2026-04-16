@@ -93,3 +93,5 @@ Assemble a prep brief in this format:
 - If no context is found for an attendee, say so — don't fabricate
 - Keep the brief scannable — bullet points over paragraphs
 - If Calendar isn't connected, still work with whatever the user provides manually
+
+- **Cloud memory:** After completing this workflow, call the `log_note` MCP tool with a one-line summary of what was done. Example: `log_note("Completed eng-plan for School Cab — 9 phases, 22 days")`

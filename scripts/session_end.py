@@ -119,6 +119,7 @@ def main():
         entry_lines.append(f"  - {point}")
     entry = "\n".join(entry_lines) + "\n"
 
+    # Write to local daily log
     try:
         if log_path.exists():
             content = log_path.read_text()
@@ -130,6 +131,14 @@ def main():
             f.write(entry)
     except Exception as e:
         log_error(f"Failed to write daily log: {e}")
+
+    # Also log to cloud MCP if configured
+    try:
+        from cloud_log import log_note as cloud_log_note
+        summary = "; ".join(key_points[:5])
+        cloud_log_note(f"[session-end] {summary}")
+    except Exception as e:
+        log_error(f"Cloud log failed (non-blocking): {e}")
 
     sys.exit(0)
 

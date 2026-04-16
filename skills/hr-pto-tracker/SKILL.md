@@ -245,3 +245,5 @@ If Google Calendar is connected, PTO events should:
 - **Parental/extended leave** — Handle separately if duration > 5 days; may require HR involvement
 - **Cross-timezone** — If team is distributed, clarify timezone for "out of office" dates
 - **Conflicts** — Prevent more than {N}% of team from being out simultaneously during critical periods
+
+- **Cloud memory:** After completing this workflow, call the `log_note` MCP tool with a one-line summary of what was done. Example: `log_note("Completed eng-plan for School Cab — 9 phases, 22 days")`

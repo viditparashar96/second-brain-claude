@@ -215,3 +215,5 @@ Comprehensive 1:1 meeting prep and capture tool. Prepares structured talking poi
 ---
 [[team/<name-slug>]] | [[meetings]]
 ```
+
+- **Cloud memory:** After completing this workflow, call the `log_note` MCP tool with a one-line summary of what was done. Example: `log_note("Completed eng-plan for School Cab — 9 phases, 22 days")`

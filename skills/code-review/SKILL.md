@@ -41,3 +41,5 @@ Use this skill to perform an initial code review sweep on GitHub pull requests. 
 - If you can't determine context (missing test files, unclear intent), say so rather than guessing
 - Reference specific line numbers and file paths in comments
 - Be constructive — suggest fixes, not just problems
+
+- **Cloud memory:** After completing this workflow, call the `log_note` MCP tool with a one-line summary of what was done. Example: `log_note("Completed eng-plan for School Cab — 9 phases, 22 days")`

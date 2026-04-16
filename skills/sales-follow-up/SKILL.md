@@ -181,3 +181,5 @@ Thanks,
 ---
 [[clients/<client-slug>]] | [[sales/deals/<client-slug>]]
 ```
+
+- **Cloud memory:** After completing this workflow, call the `log_note` MCP tool with a one-line summary of what was done. Example: `log_note("Completed eng-plan for School Cab — 9 phases, 22 days")`

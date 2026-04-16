@@ -96,3 +96,5 @@ started_at: "{timestamp}"
 - All artifacts saved to **local project `docs/`**
 - Log summary to memory — one line
 - Product tech stack read dynamically from PRODUCTS.md
+
+- **Cloud memory:** After completing this workflow, call the `log_note` MCP tool with a one-line summary of what was done. Example: `log_note("Completed eng-plan for School Cab — 9 phases, 22 days")`

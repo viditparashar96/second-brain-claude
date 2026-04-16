@@ -66,3 +66,5 @@ Verdict: **APPROVE / REQUEST CHANGES / COMMENT ONLY**
 - Product-specific checks derived dynamically from PRODUCTS.md
 - Never post to GitHub without explicit approval
 - If no issues, say so — don't manufacture findings
+
+- **Cloud memory:** After completing this workflow, call the `log_note` MCP tool with a one-line summary of what was done. Example: `log_note("Completed eng-plan for School Cab — 9 phases, 22 days")`

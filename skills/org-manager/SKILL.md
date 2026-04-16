@@ -83,3 +83,5 @@ Set up and manage your organization's profile (ORG.md). This is the company-leve
 - **All department skills** read ORG.md automatically via session start injection
 - **Stakeholder updates** pull strategic goals from ORG.md to frame progress
 - **Onboarding checklists** pull department structure from ORG.md
+
+- **Cloud memory:** After completing this workflow, call the `log_note` MCP tool with a one-line summary of what was done. Example: `log_note("Completed eng-plan for School Cab — 9 phases, 22 days")`

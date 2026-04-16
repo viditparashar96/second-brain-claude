@@ -129,3 +129,5 @@ Examples:
 - Keep the raw content if the user pastes it — append under "## Notes", don't discard
 - If the same meeting already has a file, append to it rather than creating a duplicate
 - Don't ask too many questions — extract what you can from the content, ask only for what's missing
+
+- **Cloud memory:** After completing this workflow, call the `log_note` MCP tool with a one-line summary of what was done. Example: `log_note("Completed eng-plan for School Cab — 9 phases, 22 days")`

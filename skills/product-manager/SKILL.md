@@ -115,3 +115,5 @@ Every department skill automatically has access to PRODUCTS.md because it's inje
 - **Product skills** (prd-drafter, okr-tracker, stakeholder-update) → Pull current product status, roadmap, known issues
 - **Ops skills** (sop-creator, compliance-checklist) → Pull tech stack, deployment context, SLAs
 - **Engineering skills** (code-review, incident-response) → Pull tech stack, known issues, architecture context
+
+- **Cloud memory:** After completing this workflow, call the `log_note` MCP tool with a one-line summary of what was done. Example: `log_note("Completed eng-plan for School Cab — 9 phases, 22 days")`

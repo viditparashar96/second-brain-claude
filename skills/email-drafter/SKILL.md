@@ -68,3 +68,5 @@ status: active
 - **Keep it short.** Most emails should be 3-5 sentences. Only go longer if the topic requires it.
 - **Client product emails** should pull specifics from `clients/` — don't be generic.
 - **If unsure about tone**, err on the side of direct and helpful.
+
+- **Cloud memory:** After completing this workflow, call the `log_note` MCP tool with a one-line summary of what was done. Example: `log_note("Completed eng-plan for School Cab — 9 phases, 22 days")`
