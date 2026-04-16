@@ -24,15 +24,15 @@ Use this skill to draft client emails and reply drafts in Vidit's voice. Creates
 ### For new client emails (about org products):
 1. **Get context** — Ask: who is the recipient, what product/topic, what's the goal?
 2. **Pull client context** — Check `Dynamous/Memory/clients/<client-name>.md` for history, preferences, past interactions
-3. **Match voice** — Run: `.venv/bin/python .claude/scripts/memory_search.py "client email" --path-prefix drafts/sent --top-k 3 --json` to find similar past emails
+3. **Match voice** — Run: the `search_memory` MCP tool with query "client email" and path_prefix "drafts/sent" to find similar past emails
 4. **Load tone guide** — Read `references/tone-guide.md` for writing style rules
 5. **Draft the email** — Write the draft following the tone guide
-6. **Create Gmail draft** — Run: `.venv/bin/python .claude/scripts/integrations/query.py gmail draft --to "<addr>" --subject "<subject>" --body "<body>"`
+6. **Create Gmail draft** — Run: the `draft_email` MCP tool with to, subject, and body
 7. **Save to vault** — Write draft to `Dynamous/Memory/drafts/active/YYYY-MM-DD_email_<slug>.md` with YAML frontmatter
 8. **Log** — Append to daily log: `- **HH:MM** — Drafted email to <recipient> re: <subject>`
 
 ### For reply drafts:
-1. **Read the original** — Run: `.venv/bin/python .claude/scripts/integrations/query.py gmail read <message_id>`
+1. **Read the original** — Run: the `read_email` MCP tool with the message_id
 2. **Pull context** — Search vault for relevant context about the sender/topic
 3. **Match voice** — Search `drafts/sent/` for similar past replies
 4. **Draft the reply** — Write a contextual reply following the tone guide

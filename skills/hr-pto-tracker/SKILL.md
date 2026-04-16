@@ -43,12 +43,12 @@ Usage: Employee or manager logs a PTO request.
 
 1. Validate employee exists in vault:
    ```bash
-   python3 "${CLAUDE_PLUGIN_ROOT}/scripts/memory_search.py" "{name}" --top-k 1
+   Use the `search_memory` MCP tool with query: "{name}"
    ```
 
 2. Check for conflicts (another person already PTO those dates):
    ```bash
-   python3 "${CLAUDE_PLUGIN_ROOT}/scripts/memory_search.py" "{start-date} {end-date} out of office" --top-k 3
+   Use the `search_memory` MCP tool with query: "{start-date} {end-date} out of office"
    ```
 
 3. Log to employee's PTO file: `~/.second-brain/vault/hr/pto/YYYY-<name-slug>.md`
@@ -72,7 +72,7 @@ Usage: Employee or manager logs a PTO request.
 
 4. Cross-reference calendar (if connected):
    ```bash
-   python3 "${CLAUDE_PLUGIN_ROOT}/scripts/integrations/query.py" gcal create-event --title "OUT OF OFFICE: {Name}" --all-day --date-range "{start-date}" "{end-date}" --calendar "{name}@company.com"
+   Log the calendar item with `log_note` (calendar creation not yet in MCP)
    ```
 
 5. Check for coverage gaps:
@@ -105,7 +105,7 @@ Usage: See who's out during a specific period.
 
 2. Search all PTO files for entries overlapping that range:
    ```bash
-   python3 "${CLAUDE_PLUGIN_ROOT}/scripts/memory_search.py" "out of office {date-range}" --top-k 10
+   Use the `search_memory` MCP tool with query: "out of office {date-range}"
    ```
 
 3. Display availability matrix:
@@ -152,7 +152,7 @@ Usage: Get overview of team PTO patterns, burndown, capacity.
 
 1. Gather all PTO files for the department (or all departments):
    ```bash
-   python3 "${CLAUDE_PLUGIN_ROOT}/scripts/memory_search.py" "PTO Log" --top-k {team-size * 2}
+   Use the `search_memory` MCP tool with query: "PTO Log"
    ```
 
 2. Aggregate by employee and month:

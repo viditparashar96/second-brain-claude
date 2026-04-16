@@ -39,8 +39,8 @@ Ask for (or extract from context):
 Search for team and project context:
 
 ```bash
-python3 "${CLAUDE_PLUGIN_ROOT}/scripts/memory_search.py" "team {department} context" --top-k 2
-python3 "${CLAUDE_PLUGIN_ROOT}/scripts/memory_search.py" "{role} responsibilities" --top-k 2
+Use the `search_memory` MCP tool with query: "team {department} context"
+Use the `search_memory` MCP tool with query: "{role} responsibilities"
 ```
 
 Read the new hire's manager file if it exists:
@@ -241,8 +241,8 @@ If Asana is connected, ask:
 
 If yes:
 ```bash
-python3 "${CLAUDE_PLUGIN_ROOT}/scripts/integrations/query.py" asana create-task --name "Pre-arrival: IT setup for {Name}" --due "{start-date minus 14 days}" --notes "Email, laptop, Slack, GitHub"
-python3 "${CLAUDE_PLUGIN_ROOT}/scripts/integrations/query.py" asana create-task --name "30-day onboarding review: {Name}" --due "{start-date plus 30 days}" --notes "Manager: Check progress on goals"
+Use the `list_tasks` MCP tool (task creation via Asana API — log the action item with `log_note` instead)
+Use the `list_tasks` MCP tool (task creation via Asana API — log the action item with `log_note` instead)
 ```
 
 ## Naming Convention

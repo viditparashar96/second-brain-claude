@@ -39,7 +39,7 @@ Create and maintain Standard Operating Procedures that document processes, defin
 
 3. **Search vault for related processes** — Run:
    ```bash
-   python3 "${CLAUDE_PLUGIN_ROOT}/scripts/memory_search.py" "<process-name> process procedure" --top-k 5
+   Use the `search_memory` MCP tool with query: "<process-name> process procedure"
    ```
    Find related SOPs, process documentation, team notes to ensure consistency
 
@@ -98,7 +98,7 @@ Create and maintain Standard Operating Procedures that document processes, defin
 
 10. **Optionally create Asana task** for review/approval:
    ```bash
-   python3 "${CLAUDE_PLUGIN_ROOT}/scripts/integrations/query.py" asana create-task \
+   Use the `list_tasks` MCP tool (task creation via Asana API — log the action item with `log_note` instead)
      --project "Operations" \
      --name "Review & Approve SOP: [process-name]" \
      --assignee "[process-owner]" \

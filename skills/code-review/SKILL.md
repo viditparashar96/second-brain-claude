@@ -21,7 +21,7 @@ Use this skill to perform an initial code review sweep on GitHub pull requests. 
 ## Workflow
 
 1. **Identify the PR** — Extract repo and PR number from user input or heartbeat context
-2. **Fetch the diff** — Run: `.venv/bin/python .claude/scripts/integrations/query.py github diff <PR_NUMBER> --repo <OWNER/REPO>`
+2. **Fetch the diff** — Run: the `pr_diff` MCP tool with the repo and PR number
 3. **Load checklist** — Read `references/review-checklist.md` for evaluation criteria
 4. **Analyze each changed file** against the checklist categories:
    - Correctness
@@ -30,7 +30,7 @@ Use this skill to perform an initial code review sweep on GitHub pull requests. 
    - Security
    - Test coverage
 5. **Draft review comments** — For each issue found, note the file, line context, and what to fix
-6. **Post the review** — Run: `.venv/bin/python .claude/scripts/integrations/query.py github review <PR_NUMBER> --repo <OWNER/REPO> --body "<review text>" --event COMMENT`
+6. **Post the review** — Run: the `log_note` MCP tool to record your review findings
 7. **Log to daily** — Append: `- **HH:MM** — Reviewed PR #N on <repo>: <summary>`
 
 ## Rules

@@ -45,15 +45,15 @@ Define, track, and report on OKRs (Objectives and Key Results). Maintains a livi
 4. **For UPDATE command** — Log progress:
    - Fetch related Asana completed tasks:
      ```bash
-     python3 "${CLAUDE_PLUGIN_ROOT}/scripts/integrations/query.py" asana search "<OKR-name>" --status "Complete"
+     Use the `list_tasks` MCP tool to find matching tasks
      ```
    - Pull merged PRs if GitHub connected:
      ```bash
-     python3 "${CLAUDE_PLUGIN_ROOT}/scripts/integrations/query.py" github search "is:merged" --q "<OKR-name>"
+     Use the `list_prs` MCP tool to find relevant PRs
      ```
    - Search daily log for recent progress mentions:
      ```bash
-     python3 "${CLAUDE_PLUGIN_ROOT}/scripts/memory_search.py" "<OKR-name> progress completed" --top-k 3
+     Use the `search_memory` MCP tool with query: "<OKR-name> progress completed"
      ```
    - Calculate current progress % against each key result
    - Determine status: on-track (>80% expected progress), at-risk (50-80%), behind (<50%)

@@ -37,7 +37,7 @@ Manage compliance requirements across regulatory frameworks (SOC 2, GDPR, HIPAA,
 2. **For CREATE command** — Build new compliance framework:
    - Search vault for framework guidelines/templates:
      ```bash
-     python3 "${CLAUDE_PLUGIN_ROOT}/scripts/memory_search.py" "<framework-name> requirements audit controls" --top-k 5
+     Use the `search_memory` MCP tool with query: "<framework-name> requirements audit controls"
      ```
    - Search team docs for existing controls/policies:
      ```bash
@@ -117,7 +117,7 @@ Manage compliance requirements across regulatory frameworks (SOC 2, GDPR, HIPAA,
 8. **Create Asana tasks for non-compliant items**:
    ```bash
    for each non-compliant item:
-     python3 "${CLAUDE_PLUGIN_ROOT}/scripts/integrations/query.py" asana create-task \
+     Use the `list_tasks` MCP tool (task creation via Asana API — log the action item with `log_note` instead)
        --project "Compliance" \
        --name "Remediate [requirement]: [brief description]" \
        --assignee "[owner]" \
@@ -127,7 +127,7 @@ Manage compliance requirements across regulatory frameworks (SOC 2, GDPR, HIPAA,
 
 9. **Add audit calendar events**:
    ```bash
-   python3 "${CLAUDE_PLUGIN_ROOT}/scripts/integrations/query.py" gcal create-event \
+   Log the calendar item with `log_note` (calendar creation not yet in MCP)
      --title "[Framework] Compliance Audit Due" \
      --date "[next-audit-date]" \
      --reminder "30 days before"

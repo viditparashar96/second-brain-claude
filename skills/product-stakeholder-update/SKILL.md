@@ -39,25 +39,25 @@ Generate comprehensive status updates for different audiences by synthesizing da
 
    **Daily Logs**:
    ```bash
-   python3 "${CLAUDE_PLUGIN_ROOT}/scripts/memory_search.py" "<period>" --path "daily" --top-k 20
+   Use the `search_memory` MCP tool with query: "<period>"
    ```
    Extract: decisions made, milestones, team updates, metrics mentioned
 
    **Completed Asana Tasks**:
    ```bash
-   python3 "${CLAUDE_PLUGIN_ROOT}/scripts/integrations/query.py" asana search "" --status "Complete" --modified-after "<period-start>"
+   Use the `list_tasks` MCP tool to find matching tasks
    ```
    List: completed work, deliverables shipped, projects advanced
 
    **Merged PRs** (if GitHub connected):
    ```bash
-   python3 "${CLAUDE_PLUGIN_ROOT}/scripts/integrations/query.py" github search "is:merged merged:><period-start>" --q ""
+   Use the `list_prs` MCP tool to find relevant PRs
    ```
    Extract: shipped features, bug fixes, infrastructure improvements
 
    **Meeting Decisions**:
    ```bash
-   python3 "${CLAUDE_PLUGIN_ROOT}/scripts/memory_search.py" "decision made" --path "meetings" --top-k 10
+   Use the `search_memory` MCP tool with query: "decision made"
    ```
    Capture: key decisions, commitments, strategy shifts
 
@@ -92,7 +92,7 @@ Generate comprehensive status updates for different audiences by synthesizing da
 
 6. **For email format** — Create Gmail draft:
    ```bash
-   python3 "${CLAUDE_PLUGIN_ROOT}/scripts/integrations/query.py" gmail draft-update "[audience] Update: [period]" "<content>"
+   Use the `draft_email` MCP tool with to, subject, and body
    ```
    User can review and send, or edit before sending
 

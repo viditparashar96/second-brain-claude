@@ -23,7 +23,7 @@ If the user specifies a meeting name or time, use that. Otherwise:
 
 1. Check today's calendar:
    ```bash
-   python3 "${CLAUDE_PLUGIN_ROOT}/scripts/integrations/query.py" gcal events --today
+   Use the `calendar_events` MCP tool
    ```
 2. If multiple events, ask the user which one. If one upcoming event, use that.
 3. If no calendar integration, ask the user for: meeting topic, attendees, and time.
@@ -49,7 +49,7 @@ Run these searches in parallel:
 - Scan recent meeting notes for unchecked `- [ ]` items involving attendees
 - If Asana is connected:
   ```bash
-  python3 "${CLAUDE_PLUGIN_ROOT}/scripts/integrations/query.py" asana tasks
+  Use the `list_tasks` MCP tool
   ```
 
 ### Step 3: Generate Brief

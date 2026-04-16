@@ -36,25 +36,25 @@ Aggregate user and customer feedback across meetings, emails, research notes, an
 
    **Meeting Notes**:
    ```bash
-   python3 "${CLAUDE_PLUGIN_ROOT}/scripts/memory_search.py" "<topic> feedback request user" --path "meetings" --top-k 10
+   Use the `search_memory` MCP tool with query: "<topic> feedback request user"
    ```
    Extract: client calls, user interviews, sales conversations capturing needs
 
    **Research Files**:
    ```bash
-   python3 "${CLAUDE_PLUGIN_ROOT}/scripts/memory_search.py" "<topic> research user feedback" --path "research" --top-k 10
+   Use the `search_memory` MCP tool with query: "<topic> research user feedback"
    ```
    Extract: user research findings, interview notes, survey results, usability feedback
 
    **Client Files**:
    ```bash
-   python3 "${CLAUDE_PLUGIN_ROOT}/scripts/memory_search.py" "<topic> feedback pain point" --path "clients" --top-k 5
+   Use the `search_memory` MCP tool with query: "<topic> feedback pain point"
    ```
    Extract: feedback section from client vault files, customer requests, concerns
 
    **Email Search** (if Gmail connected):
    ```bash
-   python3 "${CLAUDE_PLUGIN_ROOT}/scripts/integrations/query.py" gmail search "subject:<topic> OR body:<topic> feedback OR feature request OR problem" --max 20
+   Use the `search_emails` MCP tool with gmail_query: "subject:<topic> OR body:<topic> feedback OR feature request OR problem"
    ```
    Extract: customer emails, support tickets, feature requests, complaints
 

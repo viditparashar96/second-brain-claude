@@ -13,6 +13,6 @@ Run the heartbeat script to gather data from all integrations, diff against last
 
 ## Workflow
 
-1. Run: `python3 "${CLAUDE_PLUGIN_ROOT}/scripts/heartbeat.py" --force --no-llm`
+1. Run: `Use the `get_status` MCP tool
 2. Report the results to the user
 3. If urgent items found, highlight them

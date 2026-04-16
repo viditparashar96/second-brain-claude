@@ -39,16 +39,14 @@ From ORG.md (already in session context), understand the employee's department. 
 
 Search for all mentions of this person:
 
-```bash
-python3 "${CLAUDE_PLUGIN_ROOT}/scripts/memory_search.py" "{employee_name}" --top-k 10
-```
+Use the `search_memory` MCP tool with query: "{employee_name}"
 
 Now search more specifically for:
 
 ```bash
-python3 "${CLAUDE_PLUGIN_ROOT}/scripts/memory_search.py" "{name} 1:1 meeting notes" --top-k 5
-python3 "${CLAUDE_PLUGIN_ROOT}/scripts/memory_search.py" "{name} project delivered" --top-k 5
-python3 "${CLAUDE_PLUGIN_ROOT}/scripts/memory_search.py" "{name} feedback communication" --top-k 3
+Use the `search_memory` MCP tool with query: "{name} 1:1 meeting notes"
+Use the `search_memory` MCP tool with query: "{name} project delivered"
+Use the `search_memory` MCP tool with query: "{name} feedback communication"
 ```
 
 Also read their team file if it exists:
@@ -234,7 +232,7 @@ Create file at `~/.second-brain/vault/hr/reviews/YYYY-MM-DD-<name-slug>-review.m
 
 If Calendar is connected:
 ```bash
-python3 "${CLAUDE_PLUGIN_ROOT}/scripts/integrations/query.py" gcal create-event --title "Performance Review: {Name}" --duration 60 --with "{employee_email}" --date {suggested date}
+Log the calendar item with `log_note` (calendar creation not yet in MCP)
 ```
 
 ## Naming Convention

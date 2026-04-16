@@ -39,12 +39,12 @@ Track and evaluate vendor relationships, contracts, and performance. Automates r
 2. **For ADD command** — Create vendor profile:
    - Search Gmail for vendor communications:
      ```bash
-     python3 "${CLAUDE_PLUGIN_ROOT}/scripts/integrations/query.py" gmail search "from:<vendor-domain> OR to:<vendor-domain>" --max 20
+     Use the `search_emails` MCP tool with gmail_query: "from:<vendor-domain> OR to:<vendor-domain>"
      ```
    - Extract: contact names, support channels, communication frequency
    - Search vault for related vendor info:
      ```bash
-     python3 "${CLAUDE_PLUGIN_ROOT}/scripts/memory_search.py" "<vendor-name> contract SLA" --top-k 3
+     Use the `search_memory` MCP tool with query: "<vendor-name> contract SLA"
      ```
 
 3. **For REVIEW command** — Evaluate vendor performance:
@@ -58,7 +58,7 @@ Track and evaluate vendor relationships, contracts, and performance. Automates r
      ```
    - Retrieve recent emails for sentiment analysis:
      ```bash
-     python3 "${CLAUDE_PLUGIN_ROOT}/scripts/integrations/query.py" gmail search "from:<vendor-email>" --max 15
+     Use the `search_emails` MCP tool with gmail_query: "from:<vendor-email>"
      ```
    - Generate performance scorecard: uptime %, responsiveness, cost efficiency, feature delivery
 
@@ -70,11 +70,11 @@ Track and evaluate vendor relationships, contracts, and performance. Automates r
    - Calculate days until renewal expiration
    - Search calendar for renewal deadline:
      ```bash
-     python3 "${CLAUDE_PLUGIN_ROOT}/scripts/integrations/query.py" gcal search "<vendor-name> renewal\|contract deadline" --max 5
+     Use the `calendar_events` MCP tool with the relevant date
      ```
    - Pull 6-12 month email history with vendor:
      ```bash
-     python3 "${CLAUDE_PLUGIN_ROOT}/scripts/integrations/query.py" gmail search "from:<vendor-email>" --max 50
+     Use the `search_emails` MCP tool with gmail_query: "from:<vendor-email>"
      ```
    - Create negotiation brief with:
      - Current terms vs. market rates
@@ -123,7 +123,7 @@ Track and evaluate vendor relationships, contracts, and performance. Automates r
 
 8. **Add renewal date to calendar** if renewing:
    ```bash
-   python3 "${CLAUDE_PLUGIN_ROOT}/scripts/integrations/query.py" gcal create-event \
+   Log the calendar item with `log_note` (calendar creation not yet in MCP)
      --title "Vendor Renewal Deadline: [vendor-name]" \
      --date "[renewal-date]" \
      --reminder "14 days before"
@@ -131,7 +131,7 @@ Track and evaluate vendor relationships, contracts, and performance. Automates r
 
 9. **Optionally create Asana task** for renewal action:
    ```bash
-   python3 "${CLAUDE_PLUGIN_ROOT}/scripts/integrations/query.py" asana create-task \
+   Use the `list_tasks` MCP tool (task creation via Asana API — log the action item with `log_note` instead)
      --project "Operations" \
      --name "Renew contract: [vendor-name] (due YYYY-MM-DD)" \
      --due-date "[30-days-before-expiry]"

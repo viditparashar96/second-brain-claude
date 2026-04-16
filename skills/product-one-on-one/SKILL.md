@@ -40,25 +40,25 @@ Comprehensive 1:1 meeting prep and capture tool. Prepares structured talking poi
 
 3. **Search for recent activity** — Run:
    ```bash
-   python3 "${CLAUDE_PLUGIN_ROOT}/scripts/memory_search.py" "<name> work progress projects" --top-k 5
+   Use the `search_memory` MCP tool with query: "<name> work progress projects"
    ```
    Find: recent accomplishments, decisions made, growth areas mentioned
 
 4. **Check daily log mentions** — Search for their name in daily log:
    ```bash
-   python3 "${CLAUDE_PLUGIN_ROOT}/scripts/memory_search.py" "<name>" --path "daily" --top-k 3
+   Use the `search_memory` MCP tool with query: "<name>"
    ```
    Extract: recent wins, challenges, blockers logged
 
 5. **Fetch their Asana tasks** — Run:
    ```bash
-   python3 "${CLAUDE_PLUGIN_ROOT}/scripts/integrations/query.py" asana search "assignee:<name>" --status "Not Started,In Progress"
+   Use the `list_tasks` MCP tool to find matching tasks
    ```
    List: open tasks, overdue work, blocked items
 
 6. **Search vault for action items** — Run:
    ```bash
-   python3 "${CLAUDE_PLUGIN_ROOT}/scripts/memory_search.py" "<name> action items from:1:1" --top-k 5
+   Use the `search_memory` MCP tool with query: "<name> action items from:1:1"
    ```
    Extract: items from last 1:1, commitments made, progress on those items
 
@@ -105,7 +105,7 @@ Comprehensive 1:1 meeting prep and capture tool. Prepares structured talking poi
 
 14. **Create Asana tasks** (if connected) — For action items assigned to team member:
     ```bash
-    python3 "${CLAUDE_PLUGIN_ROOT}/scripts/integrations/query.py" asana create "<action-item>" --assignee "<name>" --due-date "<due-date>"
+    Use the `list_tasks` MCP tool (task creation via Asana API — log the action item with `log_note` instead)
     ```
 
 15. **Log to daily log**:

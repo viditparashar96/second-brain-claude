@@ -39,12 +39,12 @@ Maintain and search a library of competitive battle cards. Lookup competitor inf
 
 4. **Search vault for recent intelligence** — Run:
    ```bash
-   python3 "${CLAUDE_PLUGIN_ROOT}/scripts/memory_search.py" "<competitor-name> pricing strengths weaknesses objections" --top-k 5
+   Use the `search_memory` MCP tool with query: "<competitor-name> pricing strengths weaknesses objections"
    ```
 
 5. **Search email history** — Run:
    ```bash
-   python3 "${CLAUDE_PLUGIN_ROOT}/scripts/integrations/query.py" gmail search "<competitor-name>" --max 10
+   Use the `search_emails` MCP tool with gmail_query: "<competitor-name>"
    ```
    Extract any mentions of competitor pricing, positioning, or customer feedback
 
@@ -101,7 +101,7 @@ Maintain and search a library of competitive battle cards. Lookup competitor inf
 
 3. **Search for public info** — Run:
    ```bash
-   python3 "${CLAUDE_PLUGIN_ROOT}/scripts/memory_search.py" "<competitor-name> website pricing features" --top-k 3
+   Use the `search_memory` MCP tool with query: "<competitor-name> website pricing features"
    ```
 
 4. **Generate battle card template** with initial info:

@@ -32,7 +32,7 @@ Generate structured Product Requirements Documents from rough notes, meeting tra
 
 3. **Search for related project context** — Run:
    ```bash
-   python3 "${CLAUDE_PLUGIN_ROOT}/scripts/memory_search.py" "<feature-name> project context requirements" --top-k 5
+   Use the `search_memory` MCP tool with query: "<feature-name> project context requirements"
    ```
    Find: existing project docs, past feature discussions, related decisions
 
@@ -44,13 +44,13 @@ Generate structured Product Requirements Documents from rough notes, meeting tra
 
 5. **Search for user feedback** — Run:
    ```bash
-   python3 "${CLAUDE_PLUGIN_ROOT}/scripts/memory_search.py" "<feature-name> feedback user requests" --top-k 5
+   Use the `search_memory` MCP tool with query: "<feature-name> feedback user requests"
    ```
    Find: customer asks, pain points, research notes related to this feature
 
 6. **Check Asana for related tasks** — Run:
    ```bash
-   python3 "${CLAUDE_PLUGIN_ROOT}/scripts/integrations/query.py" asana search "<feature-name>" --max 10
+   Use the `list_tasks` MCP tool to find matching tasks
    ```
    Extract: existing work, dependencies, assigned owners, timeline context
 

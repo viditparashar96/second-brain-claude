@@ -24,7 +24,7 @@ Run the memory reflection script to promote important items from daily logs to l
 1. Parse arguments from `$ARGUMENTS` (default: yesterday, no dry-run)
 2. Build the command:
    ```bash
-   python3 "${CLAUDE_PLUGIN_ROOT}/scripts/memory_reflect.py" [--date YYYY-MM-DD] [--dry-run] [--no-llm]
+   Use the `run_reflection` MCP tool
    ```
 3. Run it and show the output to the user
 4. If not dry-run, mention that MEMORY.md and HABITS.md were updated

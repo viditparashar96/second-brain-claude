@@ -28,7 +28,7 @@ Generate a comprehensive pipeline snapshot from Asana and vault data. Pulls all 
 
 1. **Fetch active deals from Asana** — Run:
    ```bash
-   python3 "${CLAUDE_PLUGIN_ROOT}/scripts/integrations/query.py" asana search "" --section "Sales" --status "Not Started,In Progress" --max 50
+   Use the `list_tasks` MCP tool to find matching tasks
    ```
    Get all active sales tasks/deals
 
@@ -48,7 +48,7 @@ Generate a comprehensive pipeline snapshot from Asana and vault data. Pulls all 
 
 4. **Check email recency** for each deal — Run:
    ```bash
-   python3 "${CLAUDE_PLUGIN_ROOT}/scripts/integrations/query.py" gmail search "from:<client-email>" --max 1
+   Use the `search_emails` MCP tool with gmail_query: "from:<client-email>"
    ```
    Get date of last contact with client (how fresh is the relationship?)
 

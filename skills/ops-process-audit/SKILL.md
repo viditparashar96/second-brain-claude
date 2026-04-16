@@ -35,7 +35,7 @@ Analyze existing operational processes to identify bottlenecks, inefficiencies, 
 
 2. **Search vault for related SOPs** — Get current documented process:
    ```bash
-   python3 "${CLAUDE_PLUGIN_ROOT}/scripts/memory_search.py" "<process-name> SOP procedure steps" --top-k 3
+   Use the `search_memory` MCP tool with query: "<process-name> SOP procedure steps"
    ```
    If found, load the SOP:
    ```bash
@@ -44,7 +44,7 @@ Analyze existing operational processes to identify bottlenecks, inefficiencies, 
 
 3. **Search vault for process context** — Find references and issues:
    ```bash
-   python3 "${CLAUDE_PLUGIN_ROOT}/scripts/memory_search.py" "<process-name> bottleneck issue problem delay" --top-k 10
+   Use the `search_memory` MCP tool with query: "<process-name> bottleneck issue problem delay"
    ```
    Review meeting notes, team docs, project retrospectives mentioning this process
 
@@ -56,7 +56,7 @@ Analyze existing operational processes to identify bottlenecks, inefficiencies, 
 
 5. **Search Gmail for complaints/escalations** — Find process issues reported:
    ```bash
-   python3 "${CLAUDE_PLUGIN_ROOT}/scripts/integrations/query.py" gmail search "subject:(urgent|escalation|issue|problem|delay) <process-area>" --max 30
+   Use the `search_emails` MCP tool with gmail_query: "subject:(urgent|escalation|issue|problem|delay) <process-area>"
    ```
    Extract: complaint details, who complained, frequency, resolution
 
@@ -117,7 +117,7 @@ Analyze existing operational processes to identify bottlenecks, inefficiencies, 
 11. **Create Asana tasks** for improvement actions:
     ```bash
     for each recommendation:
-      python3 "${CLAUDE_PLUGIN_ROOT}/scripts/integrations/query.py" asana create-task \
+      Use the `list_tasks` MCP tool (task creation via Asana API — log the action item with `log_note` instead)
         --project "Operations" \
         --name "[Recommendation]: [brief description]" \
         --assignee "[owner]" \
@@ -127,7 +127,7 @@ Analyze existing operational processes to identify bottlenecks, inefficiencies, 
 
 12. **Optionally create meeting event** for process improvement kickoff:
     ```bash
-    python3 "${CLAUDE_PLUGIN_ROOT}/scripts/integrations/query.py" gcal create-event \
+    Log the calendar item with `log_note` (calendar creation not yet in MCP)
       --title "Process Audit Review: [process-name]" \
       --date "+3 days" \
       --attendees "[stakeholders]"

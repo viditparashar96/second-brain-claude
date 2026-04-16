@@ -41,13 +41,13 @@ Draft professional client proposals using vault context, past proposals for tone
 
 4. **Search similar past proposals** — Run:
    ```bash
-   python3 "${CLAUDE_PLUGIN_ROOT}/scripts/memory_search.py" "proposal template scope deliverables" --top-k 3
+   Use the `search_memory` MCP tool with query: "proposal template scope deliverables"
    ```
    Find similar past proposals to match tone, structure, and language patterns
 
 5. **Search past client emails** — Run:
    ```bash
-   python3 "${CLAUDE_PLUGIN_ROOT}/scripts/integrations/query.py" gmail search "from:<client-email>" --max 10
+   Use the `search_emails` MCP tool with gmail_query: "from:<client-email>"
    ```
    Extract communication style, terminology they use, concerns they've raised
 
@@ -71,7 +71,7 @@ Draft professional client proposals using vault context, past proposals for tone
 
 9. **Optionally create Gmail draft** — Run:
    ```bash
-   python3 "${CLAUDE_PLUGIN_ROOT}/scripts/integrations/query.py" gmail draft --to "<client-email>" --subject "Proposal: [project-name] for [client-name]" --body "<intro-email-text>"
+   Use the `draft_email` MCP tool with to, subject, and body
    ```
    Draft email never sends — user reviews and clicks send manually
 

@@ -36,15 +36,11 @@ Ask or extract the policy question:
 
 Search for relevant policies:
 
-```bash
-python3 "${CLAUDE_PLUGIN_ROOT}/scripts/memory_search.py" "{policy_topic}" --top-k 5 --path-prefix "hr/policies"
-```
+Use the `search_memory` MCP tool with query: "{policy_topic}"
 
 Also search broader research/handbook area:
 
-```bash
-python3 "${CLAUDE_PLUGIN_ROOT}/scripts/memory_search.py" "{topic}" --top-k 5 --path-prefix "research"
-```
+Use the `search_memory` MCP tool with query: "{topic}"
 
 Examples:
 - Question: "Can I work from home?" → Search: "remote work policy"

@@ -128,19 +128,19 @@ Ask: **Which integrations do you want to connect?** (select all that apply)
 1. "Do you have a Google Cloud project with Gmail API and Calendar API enabled? (yes/no)"
 2. If no: Walk through the steps (create project → enable APIs → OAuth consent → download credentials.json)
 3. "Place your credentials.json at `~/.second-brain/data/credentials/gmail/credentials.json`"
-4. Verify it exists, then run the OAuth flow: `python3 "${CLAUDE_PLUGIN_ROOT}/scripts/integrations/query.py" gmail list --limit 1`
+4. Verify it exists, then run the OAuth flow: `Use the `list_emails` MCP tool
 5. If successful: "Gmail + Calendar connected!"
 
 **For GitHub:**
 1. "Paste your GitHub Personal Access Token (fine-grained, with Contents:read + PRs:read/write + Issues:read/write):"
 2. Save to `~/.second-brain/.env` as `GITHUB_TOKEN=<token>`
-3. Verify: `python3 "${CLAUDE_PLUGIN_ROOT}/scripts/integrations/query.py" github rate-limit`
+3. Verify: `Use the `github_rate_limit` MCP tool
 4. If successful: "GitHub connected!"
 
 **For Asana:**
 1. "Paste your Asana Personal Access Token (from app.asana.com/0/developer-console):"
 2. Save to `~/.second-brain/.env` as `ASANA_TOKEN=<token>`
-3. Verify: `python3 "${CLAUDE_PLUGIN_ROOT}/scripts/integrations/query.py" asana projects`
+3. Verify: `Use the `list_asana_projects` MCP tool
 4. If successful: "Asana connected!"
 
 **Step 5t: Configure Claude API**

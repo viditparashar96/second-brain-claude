@@ -28,7 +28,7 @@ Generate a comprehensive pre-meeting brief for client and prospect calls. Pulls 
 
 2. **Search email history** — Run:
    ```bash
-   python3 "${CLAUDE_PLUGIN_ROOT}/scripts/integrations/query.py" gmail search "from:<client-email> OR to:<client-email>" --max 20
+   Use the `search_emails` MCP tool with gmail_query: "from:<client-email> OR to:<client-email>"
    ```
    Extract recent emails, tone, key topics, and any open questions
 
@@ -42,13 +42,13 @@ Generate a comprehensive pre-meeting brief for client and prospect calls. Pulls 
 
 5. **Search meeting notes** — Run:
    ```bash
-   python3 "${CLAUDE_PLUGIN_ROOT}/scripts/memory_search.py" "<client-name> meeting notes" --top-k 5
+   Use the `search_memory` MCP tool with query: "<client-name> meeting notes"
    ```
    Find past interactions, decisions, and commitments
 
 6. **Check Asana for open tasks** — Run:
    ```bash
-   python3 "${CLAUDE_PLUGIN_ROOT}/scripts/integrations/query.py" asana search "<client-name>" --status "Not Started,In Progress"
+   Use the `list_tasks` MCP tool to find matching tasks
    ```
    List deliverables, proposals, or action items related to this deal
 

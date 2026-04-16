@@ -32,9 +32,7 @@ If the user pastes raw notes/transcript, extract details from it. Otherwise ask 
 4. **Key points** — decisions, outcomes, action items
 
 If Calendar is connected, try to match to a calendar event for auto-filling date/time/attendees:
-```bash
-python3 "${CLAUDE_PLUGIN_ROOT}/scripts/integrations/query.py" gcal events --today
-```
+Use the `calendar_events` MCP tool
 
 ### Step 2: Pull Vault Context
 
@@ -98,9 +96,7 @@ If Asana is enabled, ask the user:
 > "I found {N} action items. Want me to create these as Asana tasks?"
 
 If yes, for each action item:
-```bash
-python3 "${CLAUDE_PLUGIN_ROOT}/scripts/integrations/query.py" asana create-task --name "{action}" --due "{date}" --notes "From meeting: {meeting title}"
-```
+Use the `list_tasks` MCP tool (task creation via Asana API — log the action item with `log_note` instead)
 
 If Asana is not connected or user declines, just keep them in the meeting notes.
 

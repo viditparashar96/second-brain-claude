@@ -35,9 +35,7 @@ Ask for (or extract from pasted notes):
 ### Step 2: Find Role Context
 
 Search vault for role requirements:
-```bash
-python3 "${CLAUDE_PLUGIN_ROOT}/scripts/memory_search.py" "role {role_name} requirements" --top-k 3
-```
+Use the `search_memory` MCP tool with query: "role {role_name} requirements"
 
 If found, note key competencies expected (technical skills, communication level, domain knowledge, leadership needs).
 
@@ -121,9 +119,7 @@ If Asana is connected, ask:
 > "Want me to create a hiring discussion task for the team?"
 
 If yes:
-```bash
-python3 "${CLAUDE_PLUGIN_ROOT}/scripts/integrations/query.py" asana create-task --name "Hiring Decision: {Candidate}" --due "{date 3 days out}" --notes "Interview scorecard: [[hr/interviews/YYYY-MM-DD-slug]]"
-```
+Use the `list_tasks` MCP tool (task creation via Asana API — log the action item with `log_note` instead)
 
 ## Naming Convention
 

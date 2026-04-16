@@ -37,14 +37,14 @@ Track team member allocation across projects, identify over/under-utilized resou
 2. **For VIEW command** — Generate current allocation snapshot:
    - Fetch all Asana tasks assigned to team members:
      ```bash
-     python3 "${CLAUDE_PLUGIN_ROOT}/scripts/integrations/query.py" asana list-tasks \
+     Use the `list_tasks` MCP tool
        --filter "assignee-team=[team-name]" --max 500
      ```
      Extract: assigned team member, project, task, due date, estimated effort
    
    - Fetch calendar events for team (meetings, blocked time):
      ```bash
-     python3 "${CLAUDE_PLUGIN_ROOT}/scripts/integrations/query.py" gcal list-events \
+     Use the `calendar_events` MCP tool
        --attendee "[team-email-list]" --days-ahead 30
      ```
      Calculate meeting load per person
@@ -58,7 +58,7 @@ Track team member allocation across projects, identify over/under-utilized resou
 3. **For PLAN command** — Plan allocation for upcoming work:
    - List upcoming projects/initiatives:
      ```bash
-     python3 "${CLAUDE_PLUGIN_ROOT}/scripts/memory_search.py" "project pipeline upcoming initiative" --top-k 10
+     Use the `search_memory` MCP tool with query: "project pipeline upcoming initiative"
      ```
    - For each project, estimate resource needs (engineering hours, design, QA, etc.)
    - Match available team members to requirements
@@ -68,7 +68,7 @@ Track team member allocation across projects, identify over/under-utilized resou
 4. **For GAPS command** — Identify skill/capacity gaps:
    - Analyze upcoming projects vs. available skills:
      ```bash
-     python3 "${CLAUDE_PLUGIN_ROOT}/scripts/memory_search.py" "needed skills project requirements" --top-k 5
+     Use the `search_memory` MCP tool with query: "needed skills project requirements"
      ```
    - Compare to current team skills (from team/ vault files)
    - Identify:
@@ -144,7 +144,7 @@ Track team member allocation across projects, identify over/under-utilized resou
    - For skill gaps: create hiring or training task
    - For underutilized: create assignment task or skill-building project
    ```bash
-   python3 "${CLAUDE_PLUGIN_ROOT}/scripts/integrations/query.py" asana create-task \
+   Use the `list_tasks` MCP tool (task creation via Asana API — log the action item with `log_note` instead)
      --project "Operations" \
      --name "[Resource action]: [brief description]" \
      --assignee "[manager]" \
@@ -153,7 +153,7 @@ Track team member allocation across projects, identify over/under-utilized resou
 
 10. **Add capacity review to calendar** (monthly or quarterly):
     ```bash
-    python3 "${CLAUDE_PLUGIN_ROOT}/scripts/integrations/query.py" gcal create-event \
+    Log the calendar item with `log_note` (calendar creation not yet in MCP)
       --title "Team Capacity Review & Resource Planning" \
       --date "[monthly/quarterly]" \
       --recurring "[monthly|quarterly]"

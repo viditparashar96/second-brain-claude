@@ -31,7 +31,7 @@ Generate personalized follow-up emails after client meetings or for deals gone q
 
 2. **Load recent meeting notes** — Run:
    ```bash
-   python3 "${CLAUDE_PLUGIN_ROOT}/scripts/memory_search.py" "<client-name> meeting" --top-k 1
+   Use the `search_memory` MCP tool with query: "<client-name> meeting"
    ```
    Or read from recent vault entries: `~/.second-brain/vault/meetings/<date>-<client>.md`
 
@@ -44,7 +44,7 @@ Generate personalized follow-up emails after client meetings or for deals gone q
 
 4. **Load client email tone** — Run:
    ```bash
-   python3 "${CLAUDE_PLUGIN_ROOT}/scripts/integrations/query.py" gmail search "from:<client-email>" --max 5
+   Use the `search_emails` MCP tool with gmail_query: "from:<client-email>"
    ```
    Match tone, formality, terminology from past emails
 
@@ -58,7 +58,7 @@ Generate personalized follow-up emails after client meetings or for deals gone q
 
 6. **Create Gmail draft** — Run:
    ```bash
-   python3 "${CLAUDE_PLUGIN_ROOT}/scripts/integrations/query.py" gmail draft --to "<client-email>" --subject "Follow-Up: [Meeting Topic] — [Your Name]" --body "<email-body>"
+   Use the `draft_email` MCP tool with to, subject, and body
    ```
    Draft is never sent — user reviews before clicking send
 
@@ -76,13 +76,13 @@ Generate personalized follow-up emails after client meetings or for deals gone q
 
 1. **Identify stale deals** — Run:
    ```bash
-   python3 "${CLAUDE_PLUGIN_ROOT}/scripts/integrations/query.py" asana search "" --status "In Progress" --max 20
+   Use the `list_tasks` MCP tool to find matching tasks
    ```
    Find deals/tasks with no updates in 7+ days
 
 2. **For each stale deal**, check **last contact date** — Run:
    ```bash
-   python3 "${CLAUDE_PLUGIN_ROOT}/scripts/integrations/query.py" gmail search "from:<client-email>" --max 1
+   Use the `search_emails` MCP tool with gmail_query: "from:<client-email>"
    ```
    Get date of last email
 
