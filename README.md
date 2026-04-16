@@ -92,9 +92,26 @@ Skills call cloud MCP tools automatically — all decisions, meetings, and outco
 
 Admin creates user on the dashboard or via API. Each user gets a unique API key.
 
-### Step 2: Add to Claude Desktop
+### Step 2: Open the Config File
 
-Edit `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS) or `%APPDATA%\Claude\claude_desktop_config.json` (Windows):
+**macOS** — run in Terminal:
+```bash
+open ~/Library/Application\ Support/Claude/claude_desktop_config.json
+```
+
+**Windows** — run in Command Prompt:
+```cmd
+notepad %APPDATA%\Claude\claude_desktop_config.json
+```
+
+**Linux** — run in terminal:
+```bash
+nano ~/.config/Claude/claude_desktop_config.json
+```
+
+### Step 3: Add the MCP Server
+
+Copy-paste this into the `mcpServers` section (replace `YOUR_API_KEY` with your key):
 
 ```json
 {
@@ -107,7 +124,14 @@ Edit `~/Library/Application Support/Claude/claude_desktop_config.json` (macOS) o
 }
 ```
 
-Restart Claude Desktop (Cmd+Q → reopen).
+> **Note:** If you already have other MCP servers configured, just add the `"second-brain": {...}` block inside the existing `mcpServers` object.
+
+### Step 4: Restart Claude Desktop
+
+**macOS:** Cmd+Q → reopen Claude Desktop
+**Windows:** Close → reopen Claude Desktop
+
+You should see `second-brain` with a green badge in **Settings > MCP Servers**.
 
 ### Step 3: Use It
 
