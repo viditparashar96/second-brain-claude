@@ -1,6 +1,6 @@
 {
   "name": "second-brain",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "AI-powered personal productivity system with persistent memory, integrations (Gmail, GitHub, Asana, Slack), hybrid RAG search, proactive monitoring, and a Slack chat bot",
   "author": {
     "name": "Vidit Parashar",
